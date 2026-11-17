@@ -239,7 +239,7 @@ header.top{box-shadow:0 4px 18px rgba(20,34,74,.08)}
  <p>Everything you need to lead your team: policies, forms, and step-by-step guidance, in one place.</p>
  <form class="search" onsubmit="ask(document.getElementById('q').value);return false" role="search">
   <span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
-  <input id="q" aria-label="Ask a question" placeholder="Ask a question in plain language…">
+  <input id="q" aria-label="Search the hub" placeholder="Search forms, policies, and guides…">
   <button class="go" aria-label="Search">➤</button>
  </form>
  <div class="chips">
@@ -403,10 +403,22 @@ function show(v,t){document.querySelectorAll('.view').forEach(e=>e.classList.tog
  document.querySelectorAll('nav.links button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===(v==='att'||v==='std'?'disc':v)));
  scrollTo({top:0,behavior:'smooth'})}
 function ask(t){if(!t)return;const a=$('#answer');a.style.display='block';
- a.innerHTML='<b>Draft preview.</b> With Microsoft 365 Copilot, this would return a plain-language answer for “'+t.replace(/</g,'&lt;')+'” with links to the matching policy, SOP, and form from SharePoint. <span class="note">live in SharePoint</span>'}
+ const stop=new Set('the a an and or of to for is are do does how what when where who i my me we it in on at with can should this that'.split(' '));
+ const W=t.toLowerCase().replace(/[^a-z0-9 \/-]/g,' ').split(/\s+/).filter(w=>w.length>1&&!stop.has(w)).map(w=>w.replace(/(ing|es|s)$/,'').replace(/^$/,w));
+ const P=[['Discipline Center','disc','discipline center track which warning'],['Shop Attendance (Track A)','att','shop attendance points late tardy absent absence early leave no-call no-show ncns call-in'],['Standard Discipline (Track B)','std','standard discipline conduct performance verbal written final pip suspension termination warning'],['Reviews & Onboarding','rev','reviews 30 60 90 day quarterly check-in new hire probation onboarding'],['Report a Concern','rep','report concern harassment complaint retaliation hr'],['Safety','safe','safety near miss incident injury handbook training ppe lockout tagout stop work osha'],['Forms','forms','forms documents library']];
+ const R=[];
+ P.forEach(p=>R.push({t:p[0],k:'Page',x:p[2],go:`show('${p[1]}')`}));
+ for(const id in FORMS){const F=FORMS[id];R.push({t:F.n+' (how to fill it out)',k:'Form guide',x:F.cat+' '+F.who,go:`openGuide('${id}')`})}
+ for(const c in POL)POL[c].forEach(n=>R.push({t:n,k:'Policy · '+c,x:c,go:POLURL[n]?`window.open('${POLURL[n]}','_blank','noopener')`:`toast('Policy link not added yet.')`}));
+ docs.forEach(d=>R.push({t:d[0],k:'Document · '+d[1],x:d[1]+' '+d[2],go:d[3]?`window.open('${d[3]}','_blank','noopener')`:`toast('Link not added yet.')`}));
+ SAFE_LINKS.forEach((l,i)=>R.push({t:l.n,k:'Safety',x:l.d,go:`openLink(${i})`}));
+ const sc=r=>{const h=(r.t+' '+r.x).toLowerCase().replace(/&amp;/g,'&');return W.reduce((n,w)=>n+(h.includes(w)?(r.t.toLowerCase().includes(w)?2:1):0),0)};
+ const out=R.map(r=>[sc(r),r]).filter(x=>x[0]>0).sort((p,q)=>q[0]-p[0]).slice(0,8).map(x=>x[1]);
+ a.innerHTML=out.length?'<b>Top matches for “'+t.replace(/</g,'&lt;')+'”</b>'+out.map(r=>`<a href="#" class="pol" style="display:flex;justify-content:space-between;gap:12px" onclick="${r.go.replace(/"/g,'&quot;')};return false"><span>${r.t}</span><span style="color:var(--muted);font-size:13px">${r.k}</span></a>`).join(''):'No matches. Try a different word, such as “attendance,” “warning,” “safety,” or “review.”'}
+/* DOCUMENTS: ["Name","Category","Type","web address"]. Add the address as the 4th item to make the row a link. */
 const docs=[["No-Call / No-Show Documentation Guide","HR","PDF"],["Attendance Discipline Form","HR","Form"],["Near Miss Report","Safety","Form"],["Verbal Warning","HR","Form"],["Standard Discipline Form","HR","Form"],["Excused Absence Documentation","HR","Form"],["30/60/90-Day Check-Ins","HR","Form"],["Quarterly Performance Review","HR","Form"],["Employee Handbook","HR","PDF"],["Incident &amp; Injury Report","Safety","Form"],["Lockout/Tagout Procedure","Safety","SOP"],["Paint Shop Quality Checklist","Quality","SOP"],["Refurbish Production Report","Production","Form"]];
 let cat='All';
-function fd(){const s=$('#ds').value.toLowerCase();$('#dl').innerHTML=docs.filter(d=>(cat==='All'||d[1]===cat)&&d[0].toLowerCase().includes(s)).map(d=>`<div class="doc"><span style="color:var(--navy2)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><b>${d[0]}</b><span class="m">${d[1]} · [updated date]</span></div><span class="ty">${d[2]}</span></div>`).join('')||'<p style="color:var(--muted)">No results.</p>'}
+function fd(){const s=$('#ds').value.toLowerCase();$('#dl').innerHTML=docs.filter(d=>(cat==='All'||d[1]===cat)&&d[0].toLowerCase().includes(s)).map(d=>`<${d[3]?'a href="'+d[3]+'" target="_blank" rel="noopener"':'div'} class="doc" style="${d[3]?'text-decoration:none;color:inherit;cursor:pointer':''}"><span style="color:var(--navy2)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><b>${d[0]}</b><span class="m">${d[1]} · [updated date]</span></div><span class="ty">${d[2]}</span></${d[3]?'a':'div'}>`).join('')||'<p style="color:var(--muted)">No results.</p>'}
 document.querySelectorAll('#df button').forEach(b=>b.onclick=()=>{cat=b.dataset.f;document.querySelectorAll('#df button').forEach(x=>x.classList.toggle('on',x===b));fd()});fd();
 /* helper */
 const flow={start:{q:"What is the issue?",o:[["Shop hourly employee: late, absent, left early, or no-call/no-show","A"],["Any employee: work quality, safety, behavior, or a policy violation","B"],["Attendance issue for someone who is not shop hourly, or I'm not sure","both"]]}};
@@ -522,7 +534,9 @@ const POL={"Conduct & Discipline":["Corrective Action & Discipline","Workplace C
 "Safety":["Workplace Safety","Lifting Techniques","Accidents and Safety Incidents","Drugs & Alcohol Testing"],
 "Business & Ethics":["Conflicts of Interest","Outside Employment","Gifts","Foreign Corrupt Practices Act","Workers' Compensation","Remote Work","Multi-State Employment"]};
 let pc='All';
-function fp(){const q=$('#ps').value.toLowerCase();let h='';for(const c in POL){if(pc!=='All'&&pc!==c)continue;const it=POL[c].filter(x=>x.toLowerCase().includes(q));if(!it.length)continue;h+=`<div class="pcat"><h4>${c}</h4>`+it.map(x=>`<a class="pol" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5"/></svg>${x.replace(/&/g,'&amp;')}</a>`).join('')+'</div>'}$('#pl').innerHTML=h||'<p style="color:var(--muted)">No matches.</p>'}
+/* POLICY LINKS: "Policy name":"web address", */
+const POLURL={};
+function fp(){const q=$('#ps').value.toLowerCase();let h='';for(const c in POL){if(pc!=='All'&&pc!==c)continue;const it=POL[c].filter(x=>x.toLowerCase().includes(q));if(!it.length)continue;h+=`<div class="pcat"><h4>${c}</h4>`+it.map(x=>`<a class="pol" href="${POLURL[x]||'#'}" ${POLURL[x]?'target="_blank" rel="noopener"':'onclick="toast(\'Link not added yet.\');return false"'}><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5"/></svg>${x.replace(/&/g,'&amp;')}</a>`).join('')+'</div>'}$('#pl').innerHTML=h||'<p style="color:var(--muted)">No matches.</p>'}
 $('#pf').innerHTML=['All',...Object.keys(POL)].map(c=>`<button class="${c==='All'?'on':''}" data-c="${c.replace(/&/g,'&amp;')}">${c.replace(/&/g,'&amp;')}</button>`).join('');
 document.querySelectorAll('#pf button').forEach(b=>b.onclick=()=>{pc=b.textContent;document.querySelectorAll('#pf button').forEach(x=>x.classList.toggle('on',x===b));fp()});fp();
 /* tiles: edit the u:'' web address for each tile */
