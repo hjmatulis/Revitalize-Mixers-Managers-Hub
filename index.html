@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Manager Resource Hub – Draft</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14224A;--navy2:#1d2f63;--gold:#FAB61E;--gold-d:#c88a00;--slate:#4A4A4A;--bg:#F4F6FB;--card:#fff;--ink:#1b2236;--muted:#5d6579;--line:#e3e7f0;--ok:#1f8a5b;--warn:#d97a00;--bad:#b3261e;
+--sh:0 1px 2px rgba(20,34,74,.06),0 6px 18px rgba(20,34,74,.07);--shh:0 2px 4px rgba(20,34,74,.08),0 14px 30px rgba(20,34,74,.14)}
+*{box-sizing:border-box}html,body{overflow-x:hidden}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+h1,h2,h3,h4{font-family:Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;font-weight:700;margin:0;letter-spacing:.2px;line-height:1.15}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* nav */
+header.top{background:#fff;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;gap:24px;height:68px}
+.logo{font-family:Rajdhani,Bahnschrift,"Segoe UI Semibold",sans-serif;font-weight:700;font-size:26px;letter-spacing:3px;color:var(--navy);line-height:.9;text-decoration:none}
+.logo small{display:block;font-family:Inter,"Segoe UI",system-ui,sans-serif;font-weight:500;font-size:10px;letter-spacing:5px;color:var(--slate)}
+nav.links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav.links button{background:none;border:0;font:600 14px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);padding:10px 12px;border-radius:8px;cursor:pointer}
+nav.links button:hover,nav.links button.on{background:var(--bg);box-shadow:inset 0 -3px 0 var(--gold)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* hero */
+.hero{background:linear-gradient(120deg,var(--navy) 0%,var(--navy) 55%,var(--navy2) 100%);color:#fff;position:relative;overflow:hidden;padding:56px 0 90px}
+.hero:after{content:"";position:absolute;right:-80px;top:-40px;width:520px;height:520px;background:var(--gold);opacity:.12;transform:skewX(-20deg)}
+.eyebrow{font:600 12px Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:52px;margin:6px 0 8px}
+.hero p{max-width:560px;color:#cfd7ee;margin:0 0 22px}
+.search{position:relative;max-width:680px}
+.search input{width:100%;padding:17px 56px 17px 50px;border-radius:40px;border:0;font:500 16px Inter,"Segoe UI",system-ui,sans-serif;box-shadow:var(--shh)}
+.search .ic{position:absolute;left:18px;top:15px;font-size:20px;color:var(--gold-d)}
+.search .go{position:absolute;right:8px;top:8px;width:42px;height:42px;border-radius:50%;border:0;background:var(--gold);color:var(--navy);font-weight:700;cursor:pointer;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:20px;padding:6px 13px;font:500 13px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;transition:.15s}
+.chip:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+#answer{display:none;max-width:680px;margin-top:14px;background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px;box-shadow:var(--shh);font-size:14px}
+#answer b{color:var(--navy)}
+/* alert */
+.alert{margin:-34px auto 0;position:relative;z-index:3}
+.alert .in{background:#fff8e6;border:1px solid #f3d07a;border-left:6px solid var(--gold);border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:var(--sh);font-size:14px}
+.alert button{margin-left:auto;background:none;border:0;font-size:20px;cursor:pointer;color:var(--muted)}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:14px;margin-top:22px}
+.tile{background:var(--card);border-radius:16px;padding:16px 8px;text-align:center;box-shadow:var(--sh);text-decoration:none;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);transition:.18s;border:1px solid transparent}
+.tile:hover{transform:translateY(-4px);box-shadow:var(--shh);border-color:var(--gold)}
+.tile i{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 8px;border-radius:12px;background:var(--navy);color:var(--gold);font-style:normal;font-size:20px}
+section.blk{margin-top:44px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sh:before{content:"";width:5px;height:28px;background:var(--gold);border-radius:3px}
+.sh h2{font-size:30px;color:var(--navy)}
+.sh .more{margin-left:auto;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy2)}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:18px;padding:22px;box-shadow:var(--sh)}
+.feature{display:flex;flex-direction:column;gap:8px;border-top:5px solid var(--gold);transition:.18s}
+.feature:hover{transform:translateY(-3px);box-shadow:var(--shh)}
+.tag{display:inline-block;font:700 11px Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;background:var(--navy);color:var(--gold);border-radius:6px;padding:3px 8px;width:max-content}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 14px Inter,"Segoe UI",system-ui,sans-serif;border-radius:10px;padding:11px 18px;border:2px solid var(--navy);cursor:pointer;text-decoration:none;transition:.15s}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.pri:hover{background:#ffc646}
+.btn.sec{background:#fff;color:var(--navy)}
+.btn.sec:hover{background:var(--navy);color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+/* docs */
+.dsearch{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:30px;font:500 15px Inter,"Segoe UI",system-ui,sans-serif}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;color:var(--navy)}
+.filters button.on,.filters button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.doc{display:flex;gap:12px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line);font-size:14px}
+.doc b{display:block;color:var(--navy)}
+.doc span.m{color:var(--muted);font-size:12px}
+.doc .ty{margin-left:auto;font:700 11px Inter,"Segoe UI",system-ui,sans-serif;background:var(--bg);padding:3px 8px;border-radius:6px;color:var(--slate)}
+/* feed */
+.feed .it{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.av{flex:none;width:42px;height:42px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:700 15px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif}
+.feed .m{color:var(--muted);font-size:12px}
+/* footer */
+footer{background:var(--navy);color:#aab4d3;margin-top:60px;padding:30px 0;font-size:13px}
+footer b{color:#fff}
+.note{background:#fff8e6;border:1px dashed var(--gold-d);padding:2px 7px;border-radius:5px;font-size:12px;color:#7a5600}
+/* discipline */
+.dhero{background:var(--navy);color:#fff;padding:44px 0 70px}
+.dhero h1{font-size:46px}
+.dhero p{color:#cfd7ee;max-width:640px}
+.pull{margin-top:-44px}
+.q{font:600 18px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);margin-bottom:12px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:13px 16px;font:500 15px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--gold);transform:translateX(4px)}
+.result{padding:16px;border-radius:14px;background:var(--navy);color:#fff}
+.result h3{color:var(--gold);font-size:26px}
+.crumb{font-size:12px;color:var(--muted);margin-bottom:10px}
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--line);margin-bottom:20px;flex-wrap:wrap}
+.tabs button{background:none;border:0;font:700 17px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;padding:12px 18px;cursor:pointer;color:var(--muted);border-bottom:4px solid transparent;margin-bottom:-2px}
+.tabs button.on{color:var(--navy);border-color:var(--gold)}
+.steps{counter-reset:s;display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;background:#fff;border-radius:14px;padding:16px;box-shadow:var(--sh)}
+.step:before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:700 22px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif}
+.step h4{font-size:20px;color:var(--navy)}
+.step p{margin:2px 0 6px;font-size:14px;color:var(--ink)}
+.meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font:600 12px Inter,"Segoe UI",system-ui,sans-serif;border-radius:20px;padding:3px 10px;background:var(--bg);color:var(--navy);border:1px solid var(--line)}
+.pill.when{background:#fff4d6;border-color:#f3d07a}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:6px 0}
+.rung{padding:18px 14px 18px 22px;color:#fff;position:relative;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,16px 50%);margin-left:-10px;min-height:118px}
+.rung:first-child{clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%);margin-left:0;padding-left:16px}
+.rung:nth-child(1){background:#3b5aa8}.rung:nth-child(2){background:#2a3f7d}.rung:nth-child(3){background:var(--navy)}.rung:nth-child(4){background:#7a1b16}
+.rung h4{color:var(--gold);font-size:19px}.rung small{display:block;color:#dfe5f7;font-size:12px;line-height:1.4}
+.acc button{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font:600 15px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;margin-top:8px}
+.acc button:hover{border-color:var(--gold)}
+.acc .pn{display:none;padding:12px 16px;font-size:14px;background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;margin-top:-4px}
+.acc .pn.open{display:block}
+.check label{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--navy)}
+.prog{height:8px;background:var(--line);border-radius:6px;margin:10px 0;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:.25s}
+.hr{background:var(--navy);color:#fff;border-radius:18px;padding:22px}
+.hr h3{color:var(--gold);font-size:24px}
+.hr a{color:var(--gold)}
+.formbox{border:2px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+.formbox h3{color:var(--navy);font-size:22px;margin-bottom:4px}
+.view{display:none}.view.on{display:block}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}.ladder{grid-template-columns:1fr 1fr}.rung,.rung:first-child{clip-path:none;margin:0;border-radius:10px}.hero h1,.dhero h1{font-size:36px}.nav{flex-wrap:wrap;height:auto;padding:10px 0}nav.links{margin-left:0}}
+.ptable{width:100%;border-collapse:collapse;font-size:14px}.ptable th{text-align:left;font:700 12px Inter,"Segoe UI",sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:6px 8px}
+.ptable td{padding:10px 8px;border-bottom:1px solid var(--line)}.ptable tbody tr:hover td{background:#fafbfe}
+.badge{display:inline-block;min-width:36px;text-align:center;border-radius:8px;padding:2px 9px;font-weight:700;background:var(--navy);color:var(--gold)}.badge.hi{background:#7a1b16;color:#fff}
+.fl{display:flex;flex-direction:column;gap:5px;font:600 13px Inter,"Segoe UI",sans-serif;color:var(--navy);margin-bottom:12px}
+.fl input[type=number],.fl select{padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:500 15px Inter,"Segoe UI",sans-serif;background:#fff;width:100%}
+.rw .big{font:700 46px Rajdhani,Bahnschrift,"Segoe UI Semibold",sans-serif;color:var(--navy);margin:8px 0 2px;line-height:1}.rw p{margin:0;font-size:14px;color:var(--muted)}
+@media(max-width:860px){#calc{order:-1}}
+.logo img{height:46px;width:auto;display:block}
+.scope{border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;border:1px solid #f3d07a;background:#fff8e6;border-left:6px solid var(--gold)}
+.scope.b{background:#eef2fb;border-color:#cdd7ef;border-left-color:var(--navy)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;margin-top:6px}
+.pcat h4{font-size:19px;color:var(--navy);margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+a.pol{display:flex;gap:8px;align-items:center;padding:7px 4px;font-size:14px;text-decoration:none;color:var(--ink);border-radius:8px}
+a.pol svg{color:var(--navy2);flex:none}a.pol:hover{background:var(--bg);color:var(--navy);transform:translateX(3px)}
+
+:root{--fb:Inter,"Segoe UI",system-ui,sans-serif;--fh:Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif}
+.qa{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.qa button{text-align:left;background:#fff;border:1px solid rgba(20,34,74,.08);border-left:6px solid var(--gold);border-radius:16px;padding:16px 18px;cursor:pointer;box-shadow:var(--sh);transition:.18s;display:flex;flex-direction:column;gap:4px}
+.qa button:hover{transform:translateY(-3px);box-shadow:var(--shh)}
+.qa b{font:700 17px var(--fh);color:var(--navy)}.qa span{font:400 13px var(--fb);color:var(--muted)}
+.hrfab{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;gap:10px;align-items:center;background:var(--navy);color:#fff;text-decoration:none;border-radius:40px;padding:10px 18px 10px 14px;box-shadow:var(--shh);border:2px solid var(--gold);transition:.18s}
+.hrfab:hover{transform:translateY(-3px)}.hrfab svg{color:var(--gold)}.hrfab b{display:block;font:700 13px var(--fb)}.hrfab small{font:500 12px var(--fb);color:var(--gold)}
+.gm{position:fixed;inset:0;background:rgba(12,23,53,.62);display:grid;place-items:center;z-index:60;padding:16px}.gm[hidden]{display:none}
+.gbox{background:#fff;border-radius:22px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:28px;box-shadow:var(--shh)}
+.gbox h2{font-size:32px;color:var(--navy)}.gbox h4{font-size:20px;color:var(--navy);margin:18px 0 6px}
+.gx{float:right;border:0;background:var(--bg);width:38px;height:38px;border-radius:50%;font-size:22px;cursor:pointer;color:var(--navy)}
+.ft{width:100%;border-collapse:collapse;font-size:14px}.ft td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}.ft td:first-child{font-weight:600;color:var(--navy);width:38%}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;z-index:70;font:500 14px var(--fb);box-shadow:var(--shh)}.toast[hidden]{display:none}
+.acc2 .ah{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font:700 20px var(--fh);color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin-top:10px;box-shadow:var(--sh);transition:.15s}
+.acc2 .ah:hover{border-color:var(--gold)}.acc2 .ah span{font:400 24px var(--fb);color:var(--gold-d)}
+.acc2 .ap{display:none;padding:18px;background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px;margin-top:-6px}.acc2 .ap.open{display:block}
+.acc2 .ap p{margin:0 0 10px;font-size:14px}
+.tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:0 0 8px;position:relative}
+.tl:before{content:"";position:absolute;left:10%;right:10%;top:19px;height:4px;background:var(--gold);border-radius:3px}
+.tn{text-align:center;position:relative}.tn i{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 6px;border-radius:50%;background:var(--navy);color:var(--gold);font:700 15px var(--fh);font-style:normal;border:4px solid var(--bg);box-sizing:content-box}
+.tn b{display:block;font:700 15px var(--fh);color:var(--navy)}.tn small{font:400 12px var(--fb);color:var(--muted)}
+.cc{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.cc .card h3{font-size:24px;color:var(--navy)}.cc .card p{margin:4px 0;font-size:14px}
+.who{background:linear-gradient(145deg,var(--navy2),var(--navy));color:#fff;border-radius:18px;padding:20px}.who h3{color:var(--gold)}.who a{color:var(--gold)}
+@media(max-width:860px){.tl{grid-template-columns:1fr 1fr}.tl:before{display:none}.hrfab small{display:none}.hrfab{padding:10px 14px}}
+.back{display:inline-block;color:var(--gold);font:600 14px var(--fb);text-decoration:none;margin-bottom:12px}.back:hover{text-decoration:underline}
+
+:root{--blue:#2563EB;--blue-d:#1d4ed8}
+body{font-size:16px}
+.wrap{padding:0 24px}
+section.blk{margin-top:60px}
+.grid2{gap:28px}.grid3{gap:24px}
+.card{padding:30px}
+.step{padding:22px}.step p{font-size:15px}
+.doc{font-size:15px;padding:13px 4px}
+.opt{font-size:16px;padding:15px 18px}
+.acc2 .ap p,.acc .pn,.ft,.ptable,a.pol,.check label{font-size:15px}
+.feature p,.card p{font-size:15px}
+.hero p{font-size:18px}
+.hero{background:radial-gradient(900px 420px at 85% 0%,rgba(250,182,30,.20),transparent 60%),radial-gradient(700px 380px at 5% 100%,rgba(37,99,235,.35),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#0c1735,var(--navy) 55%,var(--navy2))}
+.tile i{background:linear-gradient(145deg,var(--blue),var(--navy))}
+.tile:hover{border-color:var(--blue)}
+.rung:nth-child(1){background:var(--blue)}.rung:nth-child(2){background:#1e4fc4}
+.tn i{background:linear-gradient(145deg,var(--blue),var(--navy))}
+.opt:hover{border-color:var(--blue)}
+a.pol svg{color:var(--blue)}a.pol:hover{color:var(--blue-d)}
+.card a,.ap a,.gbox a,.scope a{color:var(--blue-d)}
+.filters button.on,.filters button:hover{background:var(--blue);border-color:var(--blue)}
+.tip{position:relative;border-bottom:1px dotted var(--blue);cursor:help;white-space:nowrap}
+.tip b{display:inline-grid;place-items:center;width:15px;height:15px;margin-left:4px;border-radius:50%;background:var(--blue);color:#fff;font:700 10px var(--fb);vertical-align:middle}
+.tip:hover:after,.tip:focus:after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 8px);width:260px;white-space:normal;background:var(--navy);color:#fff;font:400 13px/1.45 var(--fb);padding:10px 12px;border-radius:10px;box-shadow:var(--shh);z-index:40}
+@media(max-width:860px){body{font-size:17px}.wrap{padding:0 18px}section.blk{margin-top:48px}.card{padding:22px}}
+.tiles{margin-top:-34px;position:relative;z-index:3}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.hero{background:radial-gradient(900px 400px at 85% 0%,rgba(250,182,30,.22),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#0c1735,var(--navy) 55%,var(--navy2))}
+.hero h1{font-size:60px;font-weight:700;letter-spacing:.5px}.hero h1 span{color:var(--gold)}
+.hero:after{opacity:.1}
+.search input{height:60px;font-size:17px}.search .ic{top:18px}.search .go{top:9px;width:42px;height:42px}
+.tile i{width:52px;height:52px;border-radius:14px;background:linear-gradient(145deg,var(--navy2),var(--navy));box-shadow:0 6px 14px rgba(20,34,74,.25)}
+.tile{padding:20px 8px 16px;border-radius:18px}
+.card{border:1px solid rgba(20,34,74,.06);border-radius:20px;padding:26px}
+.sh h2{font-size:34px}.sh:before{height:32px;width:6px}
+.feature h3{font-size:28px;color:var(--navy)}
+.step{border:1px solid rgba(20,34,74,.06);border-radius:18px;padding:20px}
+.step h4{font-size:22px}.step:before{width:48px;height:48px;border-radius:14px;background:linear-gradient(145deg,var(--gold),#ffcf5c);color:var(--navy)}
+.step{grid-template-columns:48px 1fr}
+.btn{border-radius:12px;padding:13px 22px;letter-spacing:.2px}
+.btn.pri{box-shadow:0 6px 14px rgba(250,182,30,.35)}
+.btn svg{flex:none}
+.dhero{background:radial-gradient(800px 360px at 90% 0%,rgba(250,182,30,.22),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#0c1735,var(--navy))}
+.dhero h1{font-size:56px}
+.ladder .rung h4{font-size:22px}
+.pill{padding:4px 12px}
+header.top{box-shadow:0 4px 18px rgba(20,34,74,.08)}
+.logo{font-size:28px}
+@media(max-width:860px){.hero h1{font-size:40px}.dhero h1{font-size:38px}.sh h2{font-size:28px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+ <a class="logo" href="#" onclick="show('home');return false" aria-label="Revitalize Mixers home"><img alt="Revitalize Mixers LLC" src="data:image/png;base64,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"></a>
+ <nav class="links" aria-label="Main">
+  <button class="on" data-v="home" onclick="show('home')">Home</button>
+  <button data-v="disc" onclick="show('disc')">Discipline Center</button>
+  <button data-v="safe" onclick="show('safe')">Safety</button>
+  <button data-v="rev" onclick="show('rev')">Reviews</button>
+  <button data-v="rep" onclick="show('rep')">Report a Concern</button>
+  <button onclick="goPol()">Policies</button>
+  <button data-v="forms" onclick="show('forms')">Forms</button>
+ </nav></div></header>
+
+<!-- ============ HOME ============ -->
+<main id="home" class="view on">
+<section class="hero"><div class="wrap" style="position:relative;z-index:2">
+ <div class="eyebrow">Revitalize Mixers</div>
+ <h1>Manager <span>Resource Hub</span></h1>
+ <p>Everything you need to lead your team: policies, forms, and step-by-step guidance, in one place.</p>
+ <form class="search" onsubmit="ask(document.getElementById('q').value);return false" role="search">
+  <span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
+  <input id="q" aria-label="Ask a question" placeholder="Ask a question in plain language…">
+  <button class="go" aria-label="Search">➤</button>
+ </form>
+ <div class="chips">
+  <button class="chip" onclick="ask(this.textContent)">How do I document a no-call/no-show?</button>
+  <button class="chip" onclick="ask(this.textContent)">When does a written warning apply?</button>
+  <button class="chip" onclick="ask(this.textContent)">Where is the safety incident form?</button>
+ </div>
+ <div id="answer" role="status"></div>
+</div></section>
+
+<div class="wrap">
+ <div class="tiles" id="tiles" aria-label="Quick access"></div>
+ <section class="blk"><div class="sh"><h2>Quick actions</h2></div>
+  <div class="qa">
+   <button onclick="show('att')"><b>Log an attendance event</b><span>Shop points and next steps</span></button>
+   <button onclick="openGuide('exc')"><b>Excuse an absence</b><span>Document it, then update Paycom</span></button>
+   <button onclick="show('rev')"><b>Start a 30/60/90 or quarterly review</b><span>Form and how to complete it</span></button>
+   <button onclick="show('rep')"><b>Someone reported a concern</b><span>What to do right now</span></button>
+   <button onclick="openForm('nm')"><b>Report a near miss</b><span>Safety. Takes about two minutes</span></button>
+  </div></section>
+ <section class="blk"><div class="sh"><h2>Discipline Center</h2></div>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
+   <div class="card feature"><span class="tag">Start here</span><h3>Not sure which track?</h3><p style="margin:0;color:var(--muted);font-size:14px">Answer 2 quick questions and we'll point you to the right process and form.</p><div class="btns"><button class="btn pri" onclick="show('disc')">Find my track →</button></div></div>
+   <div class="card feature"><span class="tag">Track A</span><h3>Attendance Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Points, tardies, call-outs, and no-call/no-shows.</p><div class="btns"><button class="btn sec" onclick="show('att')">View process</button></div></div>
+   <div class="card feature"><span class="tag">Track B</span><h3>Standard Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Performance, conduct, and policy violations.</p><div class="btns"><button class="btn sec" onclick="show('std')">View process</button></div></div>
+  </div></section>
+
+
+ <section class="blk" id="pol"><div class="sh"><h2>Policies &amp; Procedures</h2></div>
+  <div class="card">
+   <input class="dsearch" id="ps" placeholder="Search policies, e.g. FMLA, vacation, dress code…" aria-label="Search policies" oninput="fp()">
+   <div class="filters" id="pf"></div>
+   <div class="pgrid" id="pl"></div>
+   <p style="font-size:13px;color:var(--muted);margin:14px 0 0">Each policy opens the matching section of the current Employee Handbook in the HR library. Procedures and SOPs are in Manager Resources. <span class="note">links added in SharePoint</span></p>
+  </div></section>
+ <section class="blk"><div class="sh"><h2>Recent policy updates</h2></div>
+  <div class="card feed">
+   <div class="it"><div class="av">HR</div><div><b>Attendance policy: Show Up &amp; Earn rewards</b><div class="m">Posted [date] · Employee Handbook, Attendance <span class="note">sample entry</span></div></div></div>
+   <div class="it"><div class="av">HR</div><div><b>Quarterly performance reviews now in Microsoft Forms</b><div class="m">Posted [date] · Reviews <span class="note">sample entry</span></div></div></div>
+   <div class="it"><div class="av">HR</div><div><b>Handbook revision [version]</b><div class="m">Posted [date] · HR library <span class="note">sample entry</span></div></div></div>
+  </div></section>
+ <section class="blk">
+  <div><div class="sh"><h2>Documents &amp; Forms</h2></div>
+   <div class="card">
+    <input class="dsearch" id="ds" placeholder="Search forms, SOPs, templates…" aria-label="Search documents" oninput="fd()">
+    <div class="filters" id="df"><button class="on" data-f="All">All</button><button data-f="HR">HR</button><button data-f="Safety">Safety</button><button data-f="Production">Production</button><button data-f="Quality">Quality</button></div>
+    <div id="dl"></div>
+    <div style="margin-top:12px"><a class="more" href="#" style="font:600 13px Inter,"Segoe UI",system-ui,sans-serif">Open full Forms Library →</a></div>
+   </div></div>
+   </section>
+</div>
+</main>
+
+<!-- ============ DISCIPLINE CENTER ============ -->
+<main id="disc" class="view">
+<section class="dhero"><div class="wrap"><div class="eyebrow">Manager Resource Hub</div><h1>Discipline Center</h1>
+<p>Know exactly what to do, when to do it, and who to notify. Pick your track first: shop attendance and standard discipline are separate processes with separate forms.</p></div></section>
+<div class="wrap pull">
+ <div class="grid2" style="grid-template-columns:1fr 1fr">
+  <div class="card" id="helper">
+   <span class="tag">Which track?</span>
+   <div id="hq" style="margin-top:12px"></div>
+  </div>
+  <div class="hr">
+   <h3>HR escalation &amp; contact</h3>
+   <p style="font-size:14px;color:#cfd7ee">Call HR before you act if the situation involves: harassment, safety, threats, injury, a protected leave, or possible termination.</p>
+   <p style="margin:6px 0"><b>Hannah Matulis</b><br><a href="mailto:hannahmatulis@revitalizemixers.com">hannahmatulis@revitalizemixers.com</a> · <a href="tel:2197429281">(219) 742-9281</a></p>
+   <p style="font-size:12px;color:#aab4d3;margin:0">Confidential. Do not discuss discipline with other employees.</p>
+  </div>
+ </div>
+
+
+ <section class="blk"><div class="sh"><h2>Choose your track</h2></div>
+  <div class="grid2" style="grid-template-columns:1fr 1fr">
+   <div class="card feature"><span class="tag">Track A</span><h3>Shop Attendance</h3><p style="margin:0;color:var(--muted);font-size:14px">Shop hourly employees only. Late arrivals, absences, early leaves, and no-call/no-shows, handled with points.</p><div class="btns"><button class="btn pri" onclick="show('att')">Open Shop Attendance →</button></div></div>
+   <div class="card feature"><span class="tag">Track B</span><h3>Standard Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">All employees. Performance, conduct, safety, and policy violations: verbal, written, and final warnings.</p><div class="btns"><button class="btn pri" onclick="show('std')">Open Standard Discipline →</button></div></div>
+  </div></section>
+ <section class="blk grid2">
+  <div><div class="sh"><h2>Before you submit</h2></div>
+   <div class="card check">
+    <div class="prog"><i id="pb"></i></div>
+    <label><input type="checkbox"> I have the facts: dates, times, and witnesses</label>
+    <label><input type="checkbox"> I checked the employee's prior record and active points</label>
+    <label><input type="checkbox"> I applied the policy the same way as for others in the same situation</label>
+    <label><input type="checkbox"> I gave the employee a chance to respond</label>
+    <label><input type="checkbox"> I used the right track and the right step</label>
+    <label><input type="checkbox"> HR notified, if this is a Final or involves a protected situation</label>
+    <div id="pt" style="font-size:13px;color:var(--muted);margin-top:8px">0 of 6 complete</div>
+   </div></div>
+  <div><div class="sh"><h2>Common mistakes</h2></div>
+   <div class="acc" id="acc">
+    <button>Skipping a step on the ladder <span>+</span></button><div class="pn">Jumping straight to Final without prior documentation puts the company at risk. [Placeholder: confirm policy exceptions]</div>
+    <button>Documenting opinions instead of facts <span>+</span></button><div class="pn">Write what happened, when, and who saw it, not how you feel about it.</div>
+    <button>Waiting too long to act <span>+</span></button><div class="pn">Submit within [X] working days of the incident. <span class="note">placeholder</span></div>
+    <button>Inconsistent treatment <span>+</span></button><div class="pn">Similar situations get similar outcomes. Check with HR if unsure.</div>
+   </div></div>
+ </section>
+</div>
+</main>
+<main id="att" class="view">
+<section class="dhero"><div class="wrap"><a class="back" href="#" onclick="show('disc');return false">← Discipline Center</a><div class="eyebrow">Track A</div><h1>Shop Attendance</h1>
+<p>Points for late arrivals, absences, early leaves, and no-call/no-shows. Shop hourly employees only.</p></div></section>
+<div class="wrap pull">
+ <div id="pA"></div>
+ <section class="blk"><div class="sh"><h2>Shop attendance points</h2></div>
+  <div class="grid2" style="grid-template-columns:1.35fr 1fr;align-items:start">
+   <div class="card"><table class="ptable"><thead><tr><th>Event</th><th style="width:70px">Points</th></tr></thead><tbody id="pts"></tbody></table>
+    <p style="font-size:13px;color:var(--muted);margin:12px 0 0">Points count for a <span class="tip" tabindex="0" data-tip="Each point counts for 12 months from its date, then drops off. Points dropping off does not remove a warning already issued.">rolling 12 months<b aria-hidden="true">i</b></span>. <span class="tip" tabindex="0" data-tip="Time off the law protects, such as FMLA, medical, pregnancy, military, and approved accommodations. It never earns attendance points.">Protected leave<b aria-hidden="true">i</b></span> never earns points. Attendance and conduct warnings are tracked separately. <span class="note">Source: Employee Handbook</span></p></div>
+   <div class="card" id="calc"><span class="tag">Points calculator</span>
+    <h3 style="font-size:24px;color:var(--navy);margin:10px 0 12px">What action does this trigger?</h3>
+    <label class="fl">Employee's current points (last 12 months)<input type="number" id="cur" min="0" max="30" value="0"></label>
+    <label class="fl">New event<select id="evs"></select></label>
+    <label class="fl" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="nh" style="width:18px;height:18px;accent-color:var(--navy)"> <span class="tip" tabindex="0" data-tip="Employee hired within the last 90 days. Same point values, stricter thresholds.">New hire (first 90 days)<b aria-hidden="true">i</b></span></label>
+    <div class="result" id="cres" style="margin-top:12px"></div></div>
+  </div></section>
+ <section class="blk"><div class="sh"><h2>Show Up &amp; Earn</h2></div>
+  <div class="grid3">
+   <div class="card rw"><span class="tag">Quarterly bonus</span><div class="big">$250</div><p>Zero new points in the quarter.<br>$225 for 1 point · $200 for 2 points.</p></div>
+   <div class="card rw"><span class="tag">Annual reward</span><div class="big">+1 PTO day</div><p>No no-call/no-shows at the location for the whole year.</p></div>
+   <div class="card rw"><span class="tag">Recognition</span><div class="big">Shout-out</div><p>Bonus earners are posted on the shop board and in Teams.</p></div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin:12px 4px 0"><b>Eligibility:</b> active shop hourly employee on the payout date and not on a final written warning for attendance. Protected leave never breaks a streak. New hires qualify from their first full quarter after 90 days. Bonuses are paid through payroll and taxed as regular wages.</p>
+ </section>
+ <section class="blk"><div class="sh"><h2>If you excuse an absence</h2></div><div id="exc"></div></section>
+ <section class="blk"><div class="sh"><h2>Document it right</h2></div><div id="doc"></div></section>
+ <section class="blk"><div class="sh"><h2>Escalation ladder · Shop attendance</h2></div>
+  <div class="ladder">
+   <div class="rung"><h4>3 pts · Verbal</h4><small>Manager delivers and documents it in the Verbal Warning form. New hires: 1 pt = written.</small></div>
+   <div class="rung"><h4>6 pts · Written</h4><small>HR reviews and approves; employee signs; signed copy filed.</small></div>
+   <div class="rung"><h4>9 pts · Final</h4><small>Same process as written. New hires: 3 pts = final.</small></div>
+   <div class="rung"><h4>12 pts · Termination</h4><small>Discuss with HR, then President approves. New hires: 6 pts.</small></div>
+  </div></section>
+
+</div>
+</main>
+<main id="std" class="view">
+<section class="dhero"><div class="wrap"><a class="back" href="#" onclick="show('disc');return false">← Discipline Center</a><div class="eyebrow">Track B</div><h1>Standard Discipline</h1>
+<p>Performance, conduct, safety, and policy violations for all employees. Attendance for shop hourly employees is a separate track.</p></div></section>
+<div class="wrap pull">
+ <div id="pB"></div>
+ <section class="blk"><div class="sh"><h2>Escalation ladder · Standard</h2></div>
+  <div class="ladder">
+   <div class="rung"><h4>Verbal</h4><small>Manager delivers and records it in the Verbal Warning form. HR gets it within one business day.</small></div>
+   <div class="rung"><h4>Written</h4><small>HR approves before you deliver it. Employee signs; refusal is noted with a witness.</small></div>
+   <div class="rung"><h4>Final / <span class="tip" tabindex="0" data-tip="Performance Improvement Plan: a written plan with measurable goals, support, and check-in dates, delivered in an HR meeting.">PIP<b aria-hidden="true">i</b></span></h4><small>HR approves first. Standard Discipline Form.</small></div>
+   <div class="rung"><h4>Suspension / Termination</h4><small>HR review and President approval. Never alone. <span class="note">HR to confirm</span></small></div>
+  </div></section>
+ <section class="blk"><div class="sh"><h2>Document it right</h2></div><div id="docs"></div></section>
+</div>
+</main>
+
+<main id="rev" class="view"></main><main id="rep" class="view"></main><main id="forms" class="view"></main><main id="safe" class="view"></main>
+<a class="hrfab" href="tel:2197429281" aria-label="Call HR"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg><span><b>HR · Hannah Matulis</b><small>(219) 742-9281</small></span></a>
+<div id="gm" class="gm" hidden role="dialog" aria-modal="true" aria-labelledby="gt"><div class="gbox" id="gb"></div></div>
+<div id="toast" class="toast" hidden></div>
+<footer><div class="wrap"><img alt="Revitalize Mixers LLC" src="data:image/png;base64,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" style="height:38px;display:block;margin-bottom:12px"><b>Revitalize Mixers, LLC</b> · Hobart, IN · Loris, SC</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+function show(v,t){document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id===v));
+ document.querySelectorAll('nav.links button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===(v==='att'||v==='std'?'disc':v)));
+ scrollTo({top:0,behavior:'smooth'})}
+function ask(t){if(!t)return;const a=$('#answer');a.style.display='block';
+ a.innerHTML='<b>Draft preview.</b> With Microsoft 365 Copilot, this would return a plain-language answer for “'+t.replace(/</g,'&lt;')+'” with links to the matching policy, SOP, and form from SharePoint. <span class="note">live in SharePoint</span>'}
+const docs=[["No-Call / No-Show Documentation Guide","HR","PDF"],["Attendance Discipline Form","HR","Form"],["Near Miss Report","Safety","Form"],["Verbal Warning","HR","Form"],["Standard Discipline Form","HR","Form"],["Excused Absence Documentation","HR","Form"],["30/60/90-Day Check-Ins","HR","Form"],["Quarterly Performance Review","HR","Form"],["Employee Handbook","HR","PDF"],["Incident &amp; Injury Report","Safety","Form"],["Lockout/Tagout Procedure","Safety","SOP"],["Paint Shop Quality Checklist","Quality","SOP"],["Refurbish Production Report","Production","Form"]];
+let cat='All';
+function fd(){const s=$('#ds').value.toLowerCase();$('#dl').innerHTML=docs.filter(d=>(cat==='All'||d[1]===cat)&&d[0].toLowerCase().includes(s)).map(d=>`<div class="doc"><span style="color:var(--navy2)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><b>${d[0]}</b><span class="m">${d[1]} · [updated date]</span></div><span class="ty">${d[2]}</span></div>`).join('')||'<p style="color:var(--muted)">No results.</p>'}
+document.querySelectorAll('#df button').forEach(b=>b.onclick=()=>{cat=b.dataset.f;document.querySelectorAll('#df button').forEach(x=>x.classList.toggle('on',x===b));fd()});fd();
+/* helper */
+const flow={start:{q:"What is the issue?",o:[["Shop hourly employee: late, absent, left early, or no-call/no-show","A"],["Any employee: work quality, safety, behavior, or a policy violation","B"],["Attendance issue for someone who is not shop hourly, or I'm not sure","both"]]}};
+function hq(){ $('#hq').innerHTML='<div class="q">What is the issue?</div><div class="opts">'+flow.start.o.map((o,i)=>`<button class="opt" onclick="hres('${o[1]}')">${o[0]}</button>`).join('')+'</div>'}
+function hres(r){const m={A:["Track A · Shop Attendance","Use the attendance points process and form. This track covers shop hourly employees only."],B:["Track B · Standard","Use the performance and conduct process and form."],both:["Start with HR","Attendance points apply to shop hourly employees only. For anyone else, or if you are unsure, contact HR first and they will tell you which track applies."]}[r];
+ $('#hq').innerHTML=`<div class="result"><h3>${m[0]}</h3><p style="margin:6px 0 12px;font-size:14px">${m[1]}</p><div class="btns">${r!=='both'?`<button class="btn pri" onclick="show('${r==='A'?'att':'std'}')">Open this track →</button>`:''}<button class="btn sec" style="background:transparent;color:#fff;border-color:#fff" onclick="hq()">Start over</button></div></div>`}
+hq();
+/* ===== forms, guides, views ===== */
+const FORMS={
+att:{n:"Attendance Discipline Form",cat:"Shop attendance",who:"Shop hourly employees only",when:"The same day you assign points. At 6+ points (3+ for new hires), submit it and wait for HR approval before you meet with the employee.",
+f:[["Employee name and ID","Exactly as it appears in Paycom."],["Location","Indiana or South Carolina."],["Date and time of the event","Use the Paycom punch time, not an estimate."],["Event type","Pick the matching row from the points table."],["Points assigned","Use the points calculator on the Discipline Center page."],["Current 12-month points","From Paycom, before this event. Points older than 12 months do not count."],["Resulting action level","Verbal, written, final, or termination review. The calculator shows it."],["What happened","Facts only: when, how long, and whether and when the employee called in. No opinions."],["Prior warnings","Dates of earlier attendance warnings."],["Meeting date","The date you will meet, or met, with the employee."]],
+after:["HR is notified automatically when you submit.","At 6+ points (3+ for new hires), wait for HR approval before the meeting.","Hold the meeting, then have the employee sign. If they refuse, note it with a witness.","Make sure Paycom shows the event and points."]},
+std:{n:"Standard Discipline Form",cat:"Conduct and performance",who:"All employees",when:"For written warnings, final warnings, and PIPs, after you document the facts. HR approves before you deliver.",
+f:[["Employee name, department, location","As in Paycom."],["Date(s) of the incident","List each date if it happened more than once."],["Type of concern","Performance, conduct, safety, or policy violation."],["Policy involved","Name the handbook policy. See Policies and Procedures."],["What happened","Facts only: who, what, when, where. No opinions or labels."],["Witnesses","Anyone who saw or heard it."],["Prior coaching or discipline","Dates and what was said or done."],["Employee's response","What the employee said when given a chance to explain."],["Level of action","Written warning, final written warning, or PIP. Verbal warnings use the Verbal Warning form."],["Expected change and timeline","What must improve, by when, and what happens if it does not."]],
+after:["HR is notified automatically when you submit.","For written and final warnings, wait for HR approval before delivering.","Deliver the warning in a private meeting and have the employee sign. Note any refusal with a witness.","Never discipline alone for suspension or termination: HR and the President are involved."]},
+vw:{n:"Verbal Warning",url:"https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kglVhz1O10GyItWMb32UC4ErlUIjau9AsMnZnS0lHYZUMjFROEJIVkFTMDlCRDNORUtKVlRIUTkwUCQlQCN0PWcu",cat:"Conduct and performance",who:"Managers and supervisors, for any employee. Not for shop attendance: use the Attendance Discipline Form.",when:"Within one business day of delivering a first or second/final verbal warning.",
+f:[["Employee name, job title, location, department","As in Paycom."],["Manager","Your full name."],["Meeting date and incident date(s)","List every incident date."],["Level of discussion","First Verbal Warning, or Second / Final Verbal Warning."],["Issue type","Pick every one that applies: Performance, Conduct, Safety, Policy/Procedure, or Other."],["1. Facts / Concern","Dates, conduct or results, and objective facts. Avoid labels such as \"bad attitude.\""],["2. Policy / Instruction / Standard","The specific policy, instruction, safety rule, job expectation, or standard involved."],["3. Employee Response","The employee's material explanation. Do not leave out an explanation because you disagree with it."],["4. Required Improvement","Exactly what must change, and whether immediately or by a stated date."],["Follow-up date and prior coaching or warning dates","Type None if there are no earlier ones."],["Consequence communicated","Confirm you told the employee that continued or repeated concerns may result in further corrective action, up to and including termination."],["Manager certification","Confirm the record is accurate. Forms records your name and the date."]],
+after:["HR is notified automatically. Verbal warning records must reach HR within one business day.","The employee does not need to sign a verbal warning unless HR directs otherwise.","HR decides whether the record goes in the personnel file."]},
+nm:{n:"Near Miss Report",cat:"Safety",who:"Anyone, including managers reporting for their team",when:"As soon as it is safe, ideally the same shift.",
+f:[["Instructions coming soon","Step-by-step instructions for this form will be added here."]],
+after:["Reporting a near miss in good faith is protected. No one is retaliated against."]},
+si:{n:"Safety Incident Report (printed form)",cat:"Safety",who:"The supervisor or employee involved",when:"Immediately after the incident, once the area is safe.",
+f:[["Instructions coming soon","Step-by-step instructions for filling out the incident report will be added here."]],
+after:["Print the form, fill it out, and turn it in immediately to Nate Bennett: NathanielBennett@revitalizemixers.com."]},
+exc:{n:"Excused Absence Documentation",cat:"Shop attendance",who:"Shop hourly employees",when:"The same day you excuse an absence, late arrival, or early leave.",
+f:[["Employee name and ID","As in Paycom."],["Date and event type","For example: absence, late 20 min, early leave."],["Points that would have applied","From the points table."],["Reason it is excused","State the reason plainly."],["Supporting information","Doctor's note, call log, or manager notes, if any."],["Approving manager","Your name."],["Paycom updated","Confirm you edited the attendance record, and the date."],["Possible protected leave?","Yes if the reason may be FMLA, medical, pregnancy-related, or another protected reason. HR is notified."]],
+after:["Go into Paycom and edit the attendance record so the event is excused.","Confirm the employee's 12-month point total no longer includes the event.","If protected leave may apply, HR follows up."]},
+r30:{n:"30-Day Check-In",cat:"New-hire check-ins",who:"Supervisors, for employees in their first 90 days",when:"Around day 30 from the hire date.",
+f:[["Employee name, ID, job title, department, location","As in Paycom."],["Hire date and date of the conversation","Check-ins are due around day 30, 60, and 90 from the hire date."],["The employee's answers","The employee answers the 15 questions from HR's 30-day sheet (onboarding, role, culture, safety, process).  The employee types their own answers with you beside them. Review everything together before you submit."],["Any concern raised","Pick Yes if the employee raised safety, injury, harassment, discrimination, medical, leave, or pay. Call HR now and do not investigate it yourself."],["Attendance points since hire (shop hourly only)","Office and salaried employees have no points: skip this question. Shop: from Paycom. The first 90 days are attendance probation: 1 point is a written warning, 3 is a final warning, 6 is a termination review."],["Training and safety","Training completed and still open, safety training and PPE, and your own safety observations."],["Onboarding checklist","Handbook receipt on file, uniform issued (shop), timeclock and pay working, and a benefits reminder. Benefits begin after 30 days for full-time, benefit-eligible employees."],["Your assessment","Overall performance, strengths with examples, and areas to improve with examples."],["Goals and next check-in","Two or three goals for the next 30 days, and the date of the 60-day check-in."],["Employee acknowledgment","Reviewed with the employee and acknowledged, or declined (add a witness). It only shows they received and discussed it."],["Supervisor certification","Confirm the check-in is accurate."]],
+after:["HR is notified automatically.","If a concern was raised or pay is wrong, HR follows up the same day.","Book the 60-day check-in."]},
+r60:{n:"60-Day Check-In",cat:"New-hire check-ins",who:"Supervisors, for employees in their first 90 days",when:"Around day 60 from the hire date.",
+f:[["Employee name, ID, job title, department, location","As in Paycom."],["Hire date and date of the conversation","Check-ins are due around day 30, 60, and 90 from the hire date."],["The employee's answers","The employee answers the 14 questions from HR's 60-day sheet (performance, training, experience, safety, process).  The employee types their own answers with you beside them. Review everything together before you submit."],["Any concern raised","Pick Yes if the employee raised safety, injury, harassment, discrimination, medical, leave, or pay. Call HR now and do not investigate it yourself."],["Attendance points since hire (shop hourly only)","Office and salaried employees have no points: skip this question. Shop: from Paycom. The first 90 days are attendance probation: 1 point is a written warning, 3 is a final warning, 6 is a termination review."],["Training and safety","Training completed and still open, safety training and PPE, and your own safety observations."],["Progress on 30-day goals","Met, partly met, or not met, with examples."],["Your assessment","Overall performance, strengths with examples, and areas to improve with examples."],["On track for day 90?","Yes, some concerns, or no."],["Goals and next check-in","Goals for the next 30 days, and the date of the 90-day check-in."],["Employee acknowledgment","Reviewed with the employee and acknowledged, or declined (add a witness). It only shows they received and discussed it."],["Supervisor certification","Confirm the check-in is accurate."]],
+after:["HR is notified automatically.","Book the 90-day check-in."]},
+r90:{n:"90-Day Check-In",cat:"New-hire check-ins",who:"Supervisors, for employees in their first 90 days",when:"Around day 90. Attendance probation ends at day 90.",
+f:[["Employee name, ID, job title, department, location","As in Paycom."],["Hire date and date of the conversation","Check-ins are due around day 30, 60, and 90 from the hire date."],["The employee's answers","The employee answers the 15 questions from HR's 90-day sheet (role mastery, employer feedback, career, safety, process).  The employee types their own answers with you beside them. Review everything together before you submit."],["Any concern raised","Pick Yes if the employee raised safety, injury, harassment, discrimination, medical, leave, or pay. Call HR now and do not investigate it yourself."],["Final attendance points (shop hourly only)","Office and salaried employees: skip. Shop: from Paycom. After day 90 the stricter new-hire thresholds stop applying."],["Training and safety","Training completed and still open, safety training and PPE, and your own safety observations."],["Progress on 60-day goals","Met, partly met, or not met, with examples."],["Your assessment","Overall performance, strengths with examples, and areas to improve with examples."],["Overall assessment and next step","Your summary of the first 90 days. Continue to quarterly reviews, or concerns for HR to discuss first."],["Quarterly review and Show Up & Earn","Date of the first quarterly review, and goals for next quarter. New hires become eligible for Show Up & Earn starting with their first full quarter after day 90."],["Employee acknowledgment","Reviewed with the employee and acknowledged, or declined (add a witness). It only shows they received and discussed it."],["Supervisor certification","Confirm the check-in is accurate."]],
+after:["HR is notified automatically.","Add the employee to your quarterly review schedule."]},
+q:{n:"Quarterly Performance Review",cat:"Reviews",who:"All employees",when:"Every quarter, in a one-on-one meeting. Not tied to wage increases.",
+f:[["Employee name and quarter","For example: Q4 2026."],["Score for the quarter","Per the scoring guide."],["Reasoning behind the score","The specific reasons, with examples."],["Strengths and accomplishments","Concrete examples."],["Areas for improvement","Specific, with what good looks like."],["Goals for next quarter","Two or three clear goals."],["Employee comments","In the employee's own words."],["Meeting date and next review date","When you met and when you meet next."]],
+after:["HR receives the review automatically.","Share the goals with the employee in writing.","Schedule the next quarterly review."]}
+};
+function formBtns(id){return `<div class="btns"><button class="btn pri" onclick="openForm('${id}')">Submit online</button><button class="btn sec" onclick="openGuide('${id}')">How to fill it out</button></div>`}
+function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(window._t);window._t=setTimeout(()=>t.hidden=true,3800)}
+function openForm(id){const u=FORMS[id].url;if(u)window.open(u,'_blank','noopener');else toast("Form link not added yet. It is set when the Microsoft Form is built.")}
+function openGuide(id){const F=FORMS[id];$('#gb').innerHTML=`<button class="gx" onclick="closeGuide()" aria-label="Close">×</button><span class="tag">${F.cat}</span><h2 id="gt" style="margin-top:8px">How to fill out: ${F.n}</h2><p style="color:var(--muted);font-size:14px"><b>Who:</b> ${F.who}<br><b>When:</b> ${F.when}</p><div class="btns" style="margin:12px 0"><button class="btn pri" onclick="openForm('${id}')">Open the Microsoft Form</button></div><h4>Field by field</h4><table class="ft">${F.f.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table><h4>After you submit</h4><ol style="font-size:14px;padding-left:20px">${F.after.map(a=>`<li>${a}</li>`).join('')}</ol><p style="font-size:12px;color:var(--muted)"><span class="note">Field list is a guide. Final fields are set when the form is built.</span></p>`;$('#gm').hidden=false;$('#gm').querySelector('.gx').focus()}
+function closeGuide(){$('#gm').hidden=true}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeGuide()});
+$('#gm').addEventListener('click',e=>{if(e.target.id==='gm')closeGuide()});
+document.addEventListener('click',e=>{const b=e.target.closest('.acc2 .ah');if(b){const p=b.nextElementSibling,o=p.classList.toggle('open');b.lastElementChild.textContent=o?'−':'+';b.setAttribute('aria-expanded',o)}});
+function acc(items){return '<div class="acc2">'+items.map(i=>`<button class="ah" aria-expanded="false">${i[0]}<span>+</span></button><div class="ap">${i[1]}</div>`).join('')+'</div>'}
+function goPol(){show('home');setTimeout(()=>$('#pol').scrollIntoView({behavior:'smooth'}),60)}
+const hero=(t,p)=>`<section class="dhero"><div class="wrap"><div class="eyebrow">Manager Resource Hub</div><h1>${t}</h1><p>${p}</p></div></section>`;
+const HR='<b>Hannah Matulis</b>, Human Resources<br><a href="tel:2197429281">(219) 742-9281</a> · <a href="mailto:hannahmatulis@revitalizemixers.com">hannahmatulis@revitalizemixers.com</a>';
+const JEFF='<b>Jeff Bonnema</b>, President<br><a href="mailto:jeffbonnema@revitalizemixers.com">jeffbonnema@revitalizemixers.com</a>';
+/* reviews */
+const tl=[["0","Hire date","Attendance probation starts"],["30","30-day","Microsoft Form"],["60","60-day","Microsoft Form"],["90","90-day","Probation ends"],["Q","Every quarter","Performance review"]];
+const rv=(id,intro,st)=>`<p>${intro}</p>`+steps(st)+formBtns(id);
+$('#rev').innerHTML=hero('Reviews &amp; Onboarding','New-hire check-ins at 30, 60, and 90 days, and quarterly performance reviews for everyone. Each one is a Microsoft Form, with a guide for filling it out.')+
+`<div class="wrap pull"><div class="card"><div class="tl">${tl.map(t=>`<div class="tn"><i>${t[0]}</i><b>${t[1]}</b><small>${t[2]}</small></div>`).join('')}</div></div>
+<div class="scope" style="margin-top:18px"><b>30/60/90-day check-ins apply to every new hire.</b> Two tracks, same form: <b>Shop hourly employees</b> also review attendance points (they have a points balance). <b>Office and salaried employees</b> have no points, so skip the points items and note attendance and punctuality observations instead.</div>
+<div class="scope b" style="margin-top:12px"><b>Required every quarter:</b> every supervisor completes a Quarterly Performance Review for each of their employees and submits it in Microsoft Forms by the due date. HR tracks who has turned theirs in. <span class="note">Due dates: HR to set</span></div>
+<div class="scope" style="margin-top:12px"><b>Shop hourly only: new-hire <span class="tip" tabindex="0" data-tip="For the first 90 days after hire, the same point values apply but the thresholds are stricter. It is about attendance only.">attendance probation<b aria-hidden="true">i</b></span> (first 90 days):</b> same point values, stricter thresholds. 1 point = written warning, 3 = final warning, 6 = termination review after HR review and President approval.</div>
+<section class="blk" style="margin-top:20px"><div class="sh"><h2>New-hire reviews</h2></div>`+
+acc([["30-day check-in",rv('r30','A short check-in to confirm the new hire understands the job, is trained, and is on track. Shop hourly: check attendance points too, because probation is running. Office: no points.',[["Schedule the review","Book a private 1:1 at about day 30 from the hire date.","By day 30","You"],["Prepare","Shop hourly: pull attendance points from Paycom. Office: skip points and note attendance observations. List training done, safety observations, and examples of good work and concerns.","Before the meeting","You"],["Hold the 1:1","Cover expectations, strengths, and areas to improve. Ask for the employee's comments.","15–30 min","You + employee"],["Submit the form","Complete the 30-Day Check-In in Microsoft Forms. HR receives it automatically.","Within [X] days","You → HR"],["Set goals","Agree on two or three goals for the next 30 days.","At the meeting","You + employee"]])],
+["60-day check-in",rv('r60','Check progress against the 30-day goals and keep the new hire on track.',[["Schedule the review","Book a private 1:1 at about day 60.","By day 60","You"],["Prepare","Review the 30-day goals and form. Shop hourly: pull attendance points from Paycom. Office: skip points.","Before the meeting","You"],["Hold the 1:1","Discuss progress on each goal, with examples.","15–30 min","You + employee"],["Submit the form","Complete the 60-Day Check-In in Microsoft Forms.","Within [X] days","You → HR"],["Set goals","Agree on goals for the next 30 days.","At the meeting","You + employee"]])],
+["90-day check-in",rv('r90','The final new-hire review. Shop hourly attendance probation ends at day 90. After it, the employee joins the quarterly review cycle and becomes eligible for Show Up & Earn starting with their first full quarter.',[["Schedule the review","Book a private 1:1 at about day 90.","By day 90","You"],["Prepare","Review the 60-day goals and form. Shop hourly: pull the final attendance points from Paycom. Office: skip points.","Before the meeting","You"],["Hold the 1:1","Summarize the first 90 days: progress, strengths, and areas to improve.","15–30 min","You + employee"],["Submit the form","Complete the 90-Day Check-In in Microsoft Forms. HR receives it automatically.","Within [X] days","You → HR"],["Next steps","Add the employee to your quarterly review schedule.","After submit","You"]])]])+
+`</section><section class="blk"><div class="sh"><h2>Quarterly performance reviews</h2></div>`+
+acc([["Quarterly performance review (all employees)",rv('q','Every employee gets a one-on-one review each quarter. It is a developmental conversation, and it is not directly linked to wage increases.',[["Schedule the one-on-one","Book a private meeting with each employee after the quarter ends.","Before the due date","You"],["Prepare","Decide the score and write down the reasons, with examples. List strengths, accomplishments, and areas to improve.","Before the meeting","You"],["Hold the meeting","Explain the reasoning behind the score. Cover strengths, areas to improve, and goals. Listen to the employee's comments.","20–30 min","You + employee"],["Submit the form","Complete one Quarterly Performance Review per employee in Microsoft Forms. HR checks that every supervisor has turned theirs in.","By the quarterly due date","You → HR"],["Set next-quarter goals","Agree on two or three clear goals and share them in writing.","At the meeting","You + employee"]])]])+`</section></div>`;
+/* report */
+$('#rep').innerHTML=hero('Report a Concern','Harassment, discrimination, retaliation, threats, and other serious concerns. Know what to do and who to call.')+
+`<div class="wrap pull"><div class="grid2" style="grid-template-columns:1fr 1fr"><div class="card" id="rh"></div><div class="who"><h3>Who to contact</h3><p style="margin:8px 0">${HR}</p><p style="margin:8px 0">If the concern involves HR, or HR does not respond:<br>${JEFF}</p><p style="font-size:12px;color:#aab4d3;margin:10px 0 0">Anyone can report to any supervisor or manager, to HR, or to Jeff Bonnema.</p></div></div>
+<section class="blk"><div class="sh"><h2>If an employee comes to you</h2></div>`+
+steps([["Listen and stay calm","Let them finish. Do not judge, argue, or minimize.","Right now","You"],["Do not promise secrecy","Say you will share it only with the people who need to know, so it can be handled properly.","Right now","You"],["Do not investigate or confront","Do not question witnesses or talk to the person accused. HR handles that.","Always","You"],["Report to HR immediately","Call or email Hannah right away. Managers must report every complaint, even if the employee asks you not to.","Immediately","You → HR"],["Write it down","Record the date, time, who, and what was said, in the employee's words.","Same day","You"],["Protect against retaliation","Treat the employee the same as before. Retaliation is never allowed.","Ongoing","You"]])+
+`</section><section class="blk"><div class="sh"><h2>What to know</h2></div>`+
+acc([["What counts as harassment","<p>Harassment of any kind is not allowed. Sexual harassment includes unwelcome advances, requests for sexual favors, and other verbal or physical conduct of a sexual nature. Examples include sexual jokes, showing sexually oriented pictures, comments about someone's body, pressure to engage in sexual activity, and unwelcome touching.</p><p><a href=\"#\">Read the full Harassment policy in the Employee Handbook</a></p>"],
+["No retaliation","<p>No one may be disciplined or retaliated against for making a good-faith complaint or taking part in an investigation. If you see retaliation, report it to HR right away.</p>"],
+["Confidentiality","<p>Complaints and their outcomes are kept confidential as much as possible. Only people with a need to know are told. Do not discuss it with other employees.</p>"],
+["Other concerns to send to HR","<p>Discrimination, accommodation or leave requests (medical, pregnancy, religious), threats or violence, and anything that might involve protected leave. For an emergency or immediate danger, call 911 first, then HR.</p>"]])+`</section></div>`;
+function rhq(){$('#rh').innerHTML='<span class="tag">Who do I report to?</span><div class="q" style="margin-top:12px">What is the situation?</div><div class="opts"><button class="opt" onclick="rhr(1)">An employee reported a concern to me, or I saw it</button><button class="opt" onclick="rhr(2)">The concern involves HR</button><button class="opt" onclick="rhr(3)">Someone is in immediate danger</button></div>'}
+function rhr(n){const m={1:["Report to HR now","Call or email Hannah right away. Do not investigate it yourself.",HR],2:["Report to Jeff Bonnema","Go to Jeff directly, not through HR.",JEFF],3:["Call 911 first","Get help for anyone in danger, then call HR as soon as it is safe.",HR]}[n];$('#rh').innerHTML=`<div class="result"><h3>${m[0]}</h3><p style="margin:6px 0 10px;font-size:14px">${m[1]}</p><p style="font-size:14px;margin:0 0 12px">${m[2]}</p><button class="btn sec" style="background:transparent;color:#fff;border-color:#fff" onclick="rhq()">Start over</button></div>`}
+rhq();
+/* forms library */
+$('#forms').innerHTML=hero('Forms','Every form is a Microsoft Form. No paper copies. Open the form, or see how to fill it out first.')+`<div class="wrap pull"><div class="card"><input class="dsearch" id="fs" placeholder="Search forms…" aria-label="Search forms" oninput="ff()"><div id="fl"></div></div></div>`;
+function ff(){const q=$('#fs').value.toLowerCase();$('#fl').innerHTML=Object.keys(FORMS).filter(k=>(FORMS[k].n+FORMS[k].cat+FORMS[k].who).toLowerCase().includes(q)).map(k=>{const F=FORMS[k];return `<div class="doc" style="flex-wrap:wrap"><div style="flex:1;min-width:220px"><b>${F.n}</b><span class="m">${F.cat} · ${F.who}</span></div><div class="btns" style="margin:0"><button class="btn pri" style="padding:8px 14px" onclick="openForm('${k}')">Submit online</button><button class="btn sec" style="padding:8px 14px" onclick="openGuide('${k}')">How to fill it out</button></div></div>`}).join('')||'<p style="color:var(--muted)">No forms match.</p>'}ff();
+/* excused absences + document it right */
+$('#exc').innerHTML=steps([["Decide","Only excuse an absence when policy allows and you have a clear reason. <span class=note>HR to confirm who may excuse and which reasons qualify</span>","Same day","You"],["Document it","Submit the Excused Absence Documentation form: employee, date, reason, and any support.","Same day","You → HR"],["Update Paycom","Go into Paycom and edit the attendance record so the event is excused and no points count. <span class=note>Admin: add the exact Paycom menu path</span>","Same day","You"],["Check the points","Confirm the employee's 12-month total no longer includes the event.","Within [X] day","You"],["Protected leave?","If the reason may be FMLA, medical, pregnancy-related, or another protected reason, tell HR. These never earn points.","Right away","You → HR"]])+`<p style="font-size:14px;margin:12px 0 0"><b>Both steps are required:</b> the form is the record, and Paycom is the attendance system.</p>`+formBtns('exc');
+$('#doc').innerHTML=`<p style="font-size:14px;margin:0 0 6px"><b>The rule: facts, not opinions.</b> Write what happened, when, and who saw it. Never write how you feel about the person.</p>`+acc([["No-call / no-show (9 points)","<p>Write down: the date and shift start; the time you noticed; every attempt to reach the employee (time and method); when or if they contacted you; who you checked with.</p>"],["Leaving mid-shift without approval (9 points, HR review)","<p>Write down: the time they left; what was said before; who witnessed it; whether anyone approved it. Call HR the same day. This may result in termination after HR review.</p>"],["Late arrival or early leave","<p>Write down: scheduled time vs. the Paycom punch; whether and when they called in; the reason given; how much notice you got. Remember the 5-minute grace period for lateness.</p>"]]);
+$('#docs').innerHTML=`<p style="font-size:14px;margin:0 0 6px"><b>The rule: facts, not opinions.</b> Write what happened, when, and who saw it. Never write how you feel about the person.</p>`+acc([["Conduct incident","<p>Write down: what happened; the date, time, and place; who witnessed it; the policy or instruction involved; any earlier coaching or warnings; the employee's response.</p>"],["Performance concern","<p>Write down: the standard or expectation; specific examples with dates and results; earlier coaching or warnings; the employee's response; what must improve and by when.</p>"],["Safety violation","<p>Write down: the rule or procedure involved; what you saw; any injury or near miss; who was present. Call HR the same day for serious safety violations.</p>"]]);
+
+/* tracks */
+function steps(arr){return '<div class="steps">'+arr.map(s=>`<div class="step"><div><h4>${s[0]}</h4><p>${s[1]}</p><div class="meta"><span class="pill when">${s[2]}</span><span class="pill">${s[3]}</span></div></div></div>`).join('')+'</div>'}
+function scope(t){return t==='A'?'<div class="scope a"><b>Who this covers:</b> shop hourly employees only. Late arrivals, absences, early leaves, and no-call/no-shows are handled with points. For anyone else, use Track B or contact HR.</div>':'<div class="scope b"><b>Who this covers:</b> all employees. Use for work quality, safety, behavior, and policy violations. Attendance for shop hourly employees goes through Track A, and the two tracks are tracked separately.</div>'}
+function forms(id){return '<div class="formbox" style="margin-top:20px"><h3>'+FORMS[id].n+'</h3><p style="margin:0 0 10px;color:var(--muted);font-size:14px">Completed online in Microsoft Forms. No paper copies.</p>'+formBtns(id)+'</div>'}
+$('#pA').innerHTML=scope('A')+steps([["Verify the occurrence","Confirm the date, time, and type in Paycom. Check the employee's current 12-month points.","Same day","You"],["Assign points","Use the points table and calculator below. The total decides the level of action.","Same day","You"],["Open the case","Submit the Attendance Discipline Form. At 6 or 9 points (3 or 6 for 90-day new hires), HR reviews and approves before you meet.","[X] working day(s)","You → HR"],["Hold the conversation","Meet privately, share the facts, and let the employee respond. Employee signs; a refusal is noted with a witness (written warnings and above).","After approval","You + employee"],["File and notify","Signed copy goes to the employee file. At 12 points (6 for new hires), talk to HR first; the President approves before any termination meeting.","Same day","HR, President"]])+forms('att');
+$('#pB').innerHTML=scope('B')+steps([["Document the facts","Record what happened, when, and who witnessed it. No opinions.","Same day","You"],["Check history &amp; policy","Review prior discipline and the policy that applies.","Before the meeting","You"],["Consult HR","Required for Final warnings and anything involving safety or protected situations.","Before acting","You → HR"],["Hold the conversation","Explain the issue, the expected change, and the consequence of no change.","Within [X] working days","You + employee"],["Complete the right form","Verbal warning: Verbal Warning form, to HR within one business day. Written, final, or PIP: Standard Discipline Form.","Verbal: 1 business day","You → HR"]])+forms('vw')+forms('std');
+/* points */
+const EV=[["Late","Late 6–15 min (after 5-min grace)",1],["Late","Late 16–59 min",2],["Late","Late 1–2 hours",3],["Late","Late over 2 hours, no call (= no call/no show)",6],["Late","Late call-in (under 1 hour's notice)",3],
+["Absence","Unplanned absence, reported and approved",1],["Absence","No call / no show",9],["Absence","Multiple-day unexcused: day 1",6],["Absence","Multiple-day unexcused: day 2",6],["Absence","Day 3 consecutive: HR review, may terminate",0],
+["Early leave","Early leave 1–15 min (unexcused)",1],["Early leave","Early leave 16–59 min (unexcused)",3],["Early leave","Early leave 1–2 hours (unexcused)",3],["Early leave","Early leave 2+ hours",6],["Early leave","Left mid-shift without approval (HR review, may terminate)",9]];
+let g='',h='';EV.forEach((e,i)=>{if(e[0]!==g){g=e[0];h+=`<tr><td colspan="2" style="background:var(--bg);font:700 13px Inter,'Segoe UI',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--navy2)">${g}</td></tr>`}
+ h+=`<tr><td>${e[1]}</td><td><span class="badge${e[2]>=9?' hi':''}">${e[2]||'HR'}</span></td></tr>`});$('#pts').innerHTML=h;
+$('#evs').innerHTML=EV.map((e,i)=>`<option value="${i}">${e[1]} (${e[2]||'HR review'})</option>`).join('');
+function lvl(t,nh){const L=nh?[[6,'Termination review','HR review, then President approves.'],[3,'Final written warning','HR reviews and approves; employee signs.'],[1,'Written warning','HR reviews and approves; employee signs.']]:[[12,'Termination review','Discuss with HR, then President approves.'],[9,'Final written warning','HR reviews and approves; employee signs.'],[6,'Written warning','HR reviews and approves; employee signs.'],[3,'Verbal warning','You deliver it; employee acknowledges.']];for(const l of L)if(t>=l[0])return l;return null}
+function calc(){const c=+$('#cur').value||0,e=EV[$('#evs').value],nh=$('#nh').checked,t=c+e[2],l=lvl(t,nh),old=lvl(c,nh);
+ let m=`<div style="font-size:13px;color:#cfd7ee">New total: <b style="color:#fff;font-size:18px">${t} points</b> (${c} + ${e[2]})</div>`;
+ m+=l?`<h3>${l[1]}</h3><p style="margin:4px 0 0;font-size:14px">${l[2]}${old&&old[1]===l[1]?' Already at this level; consider whether the next level now applies.':''}</p>`:`<h3>No warning level</h3><p style="margin:4px 0 0;font-size:14px">Record the points. No corrective action yet.</p>`;
+ if(!e[2])m+='<p style="margin:8px 0 0;font-size:13px;color:var(--gold)">This event goes to HR for review and may result in termination.</p>';$('#cres').innerHTML=m}
+['cur','evs','nh'].forEach(i=>$('#'+i).addEventListener('input',calc));calc();
+/* policies */
+const POL={"Conduct & Discipline":["Corrective Action & Discipline","Workplace Conduct","Employee Attendance & Points","Call-In Procedure","Drugs & Alcohol","Weapons in the Workplace","Smoking, Vaping & Controlled Substances","Dress Code","Company Uniforms"],
+"Leave & Time Off":["Family & Medical Leave (FMLA)","Vacation Time","Vacation Advance","Sick Leave","Bereavement Leave","Jury Duty","Military Leave (USERRA)","Unpaid Time Off","Holidays","Emergency Closures","Paydays & Workweeks","Meal Breaks"],
+"Respect & Accommodation":["Equal Employment Opportunity","Harassment","Reasonable Accommodations","Pregnant Workers Fairness Act","Lactation Accommodation","Religious Accommodation","Open-Door Workplace","Romantic Relationships","Nepotism"],
+"Technology & Information":["Technology Guidelines","Social Media Use","AI Use","Biometric Data","Confidentiality & Ownership of Information","Photography of Customer Equipment","Camera Use on Company Assets"],
+"Safety":["Workplace Safety","Lifting Techniques","Accidents and Safety Incidents","Drugs & Alcohol Testing"],
+"Business & Ethics":["Conflicts of Interest","Outside Employment","Gifts","Foreign Corrupt Practices Act","Workers' Compensation","Remote Work","Multi-State Employment"]};
+let pc='All';
+function fp(){const q=$('#ps').value.toLowerCase();let h='';for(const c in POL){if(pc!=='All'&&pc!==c)continue;const it=POL[c].filter(x=>x.toLowerCase().includes(q));if(!it.length)continue;h+=`<div class="pcat"><h4>${c}</h4>`+it.map(x=>`<a class="pol" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5"/></svg>${x.replace(/&/g,'&amp;')}</a>`).join('')+'</div>'}$('#pl').innerHTML=h||'<p style="color:var(--muted)">No matches.</p>'}
+$('#pf').innerHTML=['All',...Object.keys(POL)].map(c=>`<button class="${c==='All'?'on':''}" data-c="${c.replace(/&/g,'&amp;')}">${c.replace(/&/g,'&amp;')}</button>`).join('');
+document.querySelectorAll('#pf button').forEach(b=>b.onclick=()=>{pc=b.textContent;document.querySelectorAll('#pf button').forEach(x=>x.classList.toggle('on',x===b));fp()});fp();
+/* tiles: edit the u:'' web address for each tile */
+const TILES=[{n:'Paycom',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>`},
+ {n:'SOPs',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 12h6M9 16h6"/></svg>`},
+ {n:'Safety',a:'safety',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>`},
+ {n:'IT Helpdesk',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>`},
+ {n:'Training',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg>`},
+ {n:'Benefits',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/></svg>`},
+ {n:'Core Values',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>`}];
+function goSafety(){show('safe')}
+$('#tiles').innerHTML=TILES.map(t=>t.a==='safety'?`<a class="tile" href="#" onclick="goSafety();return false"><i>${t.i}</i>${t.n}</a>`:(t.u?`<a class="tile" href="${t.u}" target="_blank" rel="noopener"><i>${t.i}</i>${t.n}</a>`:`<a class="tile" href="#" onclick="toast('This link is added when the address is set.');return false"><i>${t.i}</i>${t.n}</a>`)).join('');
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="http"]');if(a){a.target='_blank';a.rel='noopener noreferrer'}});
+/* ===== safety page ===== */
+/* Edit u:'' to add the web address for each safety link */
+const SAFE_LINKS=[
+ {n:'Safety Handbook',d:'The full handbook (last updated Aug 25, 2026)',u:''},
+ {n:'Safety incident report template',d:'Print, fill out, and turn in immediately to Nate Bennett',u:''},
+ {n:'Safety training presentation',d:'Slides for safety training',u:''},
+ {n:'Lockout/tagout program and procedures',d:'Energy-control program and equipment procedures',u:''},
+ {n:'PPE hazard assessment',d:'Required PPE by task and area',u:''},
+ {n:'Safety data sheets (SDS)',d:'Chemical and paint product information',u:''},
+ {n:'Emergency routes and assembly points',d:'Evacuation and weather-shelter maps',u:''},
+ {n:'Safety training schedule and records',d:'Required and refresher training',u:''}];
+function openLink(i){const u=SAFE_LINKS[i].u;if(u)window.open(u,'_blank','noopener');else toast('Link not added yet. It is set in the SAFE_LINKS list in the hub file.')}
+const ul=a=>'<ul style="margin:0 0 6px;padding-left:20px;font-size:15px">'+a.map(x=>'<li style="margin:4px 0">'+x+'</li>').join('')+'</ul>';
+const SAFEQ=[
+['Core safety rules',ul(['Follow all safety training, signs, instructions, posted rules, and supervisor directions.','Do only work you are trained and authorized for. Ask first if the safe method is unclear.','Never remove, bypass, or defeat a guard or safety device.','Stay out of the danger zone around energized, moving, elevated, pressurized, or unsecured equipment.','Report unsafe conditions, damaged safety equipment, and defective equipment right away.'])],
+['Personal protective equipment (PPE)',ul(['Wear the required boots, eye and face protection, gloves, hearing protection, respiratory protection, and high-visibility gear for the task and area.','Inspect PPE before each use. Do not use PPE that is damaged, defective, or contaminated.','Tell a supervisor if required PPE is missing, damaged, does not fit, or cannot be used safely with the task.'])],
+['Lockout/tagout (LOTO)',ul(['Only trained and authorized employees may apply or remove lockout/tagout devices.','Follow the energy-control procedure before servicing or maintenance. Isolate every hazardous energy source it requires.','Never start or operate locked or tagged equipment, and never remove or bypass someone else\'s lock or tag.','Do not enter a mixer drum or other powered component danger zone unless energy control is in place and you are trained.','Report a missing procedure, an unexpected energy source, or a damaged lockout device before continuing.'])],
+['QC lifts, forklifts, cranes, and rigging',ul(['Use required blocking, stands, or approved supports before anyone enters a danger zone beneath or beside an elevated truck, body, chute, or component. Never improvise supports.','Only trained, evaluated, and authorized employees operate forklifts. Do not lift people on a forklift unless the Company has authorized it.','Use cranes, hoists, and rigging within rated capacity. Do not use damaged slings, hooks, or hoists, and stay clear of suspended loads.','Stop and tell supervision if equipment, a support method, or load stability is in question.'])],
+['Welding, cutting, and hot work',ul(['Only trained and authorized employees do hot work, in an approved area or under the controls set for the task.','Remove or protect combustible materials first, and follow any required hot-work permit.','Take special precautions before welding, cutting, or heating used drums, tanks, or containers.','Stop immediately if fire protection, ventilation, PPE, or another control is missing.'])],
+['Hearing and respiratory protection',ul(['Follow all posted or assigned hearing-protection requirements. The Company is completing sound testing.','When a respirator is required, you need the medical evaluation, fit test, and training first.','Do not use a personal respirator in place of Company-required controls without approval from Safety or management.'])],
+['Cell phones, headphones, and devices',ul(['Store personal phones in a locker or designated place before entering a safety-sensitive area, such as the shop floor, yard, or loading areas.','No personal phone use while machinery, equipment, power tools, or vehicles are being operated, repaired, moved, or tested.','No headphones or earbuds in safety-sensitive areas when they could mask alarms, backup warnings, or instructions.','Never hold or use a handheld phone while driving for Company business. Pull over and park first.','Supervisors may approve a limited exception when it can be done safely.'])],
+['Injuries, incidents, first aid, and emergencies',ul(['Report work-related injuries, illnesses, accidents, property damage, unsafe conditions, and near misses promptly, even when no one was hurt.','Call 911 for medical, fire, or other emergencies.','Complete the Company incident report when the situation allows, and preserve the scene when directed.','Only trained, designated employees give first aid. If blood or bodily fluid is present, contact Safety or supervision and do not clean it up yourself.','Treat fire alarms as real. Evacuate to the assembly area. If a tornado warning or outdoor sirens sound, go to the nearest weather shelter.'])],
+['CDL QC road-testing and DOT compliance',ul(['Applies only to employees who road-test customer trucks that require a CDL.','Covered drivers follow the Company DOT Drug & Alcohol Policy, take required testing, and sign the separate DOT receipt.','A driver who is prohibited from a DOT safety-sensitive function may not road-test until legally eligible to return.'])],
+['Training and records',ul(['Attend required safety training and refreshers.','Do not perform a task that needs training, certification, fit testing, or authorization until it is done.','Follow the current version of the safety program, SOP, permit, or equipment instruction that applies.'])]];
+$('#safe').innerHTML=hero('Safety','Report near misses and incidents, find the Safety Handbook and training, and know when to stop work.')+
+`<div class="wrap pull">
+<div class="grid2" style="grid-template-columns:1fr 1fr;align-items:stretch">
+ <div class="card feature"><span class="tag">Track 1 · Near miss</span><h3>Report a near miss</h3><p style="margin:0;color:var(--muted)">Something almost caused an injury or damage, but nobody was hurt. Submit the Near Miss Report online in Microsoft Forms. It takes about two minutes.</p>${formBtns('nm')}</div>
+ <div class="card feature"><span class="tag">Track 2 · Safety incident</span><h3>Report a safety incident</h3><p style="margin:0 0 8px;color:var(--muted)">Someone was hurt or became ill at work, or there was property damage, a vehicle accident, a fire, or a chemical release.</p><p style="margin:0;font-size:15px"><b>This is a paper form.</b> Print the template, fill it out, and turn it in <b>immediately</b> to Nate Bennett: <a href="mailto:NathanielBennett@revitalizemixers.com">NathanielBennett@revitalizemixers.com</a></p><div class="btns"><button class="btn pri" onclick="openLink(1)">Open the incident template</button><button class="btn sec" onclick="openGuide('si')">How to fill it out</button></div></div>
+</div>
+<div class="scope" style="margin-top:22px"><b>Stop-work authority:</b> every employee may stop or pause work when there is an immediate safety risk, a required control is missing, or they are not trained or authorized to continue. Stop the task safely, warn coworkers, tell a supervisor or Safety, and do not restart until the hazard is fixed. Never bypass a safety rule to save time or finish a customer job. No one is retaliated against for a good-faith safety report.</div>
+<section class="blk"><div class="sh"><h2>What counts as a near miss?</h2></div>
+ <div class="card"><p style="margin:0 0 8px">An unplanned event that did not cause injury or damage but could have. Examples in our shop:</p>${ul(['A truck, body, or chute shifts or slips on its blocking or stands.','A mixer drum turns, or equipment starts, when it should be locked out.','A tool, part, or load falls near someone.','A forklift or truck nearly strikes a person, a rack, or other equipment.','A sling, hook, chain, or hoist looks damaged during a lift.','Sparks or hot work near combustible materials.','A guard is missing, bypassed, or damaged.','A spill, hose, or cord creates a slip or trip hazard.','Someone is on a phone or wearing earbuds in the shop and misses a warning.'])}<p style="margin:8px 0 0;font-size:14px;color:var(--muted)">If you are not sure, report it.</p></div>
+</section>
+<section class="blk"><div class="sh"><h2>What counts as a safety incident?</h2></div>
+ <div class="card"><p style="margin:0 0 8px">Any event at work that caused, or may have caused, harm. Use the incident report for:</p>${ul(['A work-related injury or illness, including one that needed only first aid.','Medical treatment beyond first aid, days away from work, restricted duty, or a job transfer.','Loss of consciousness, a fracture, a burn, an amputation, or an eye injury.','Property or equipment damage.','A vehicle accident involving a Company or customer truck.','A fire, an explosion, or a chemical spill or exposure.'])}
+ <p style="margin:10px 0 0;font-size:14px"><b>Serious events:</b> tell Nate Bennett immediately. OSHA must be notified within 8 hours of a work-related death, and within 24 hours of an in-patient hospitalization, amputation, or loss of an eye. <span class="note">Safety to confirm the reporting process</span></p></div>
+</section>
+<section class="blk"><div class="sh"><h2>Safety Handbook and training</h2></div>
+ <div class="grid2" style="grid-template-columns:1fr 1fr;align-items:stretch">
+ <div class="card"><h3 style="font-size:24px;color:var(--navy)">Safety Handbook</h3><p style="margin:6px 0 0;color:var(--muted)">The core safety rules for the shop. It works alongside the Employee Handbook and task-specific training, and the most specific procedure always applies. Every employee signs one general acknowledgment of receipt. <span class="note">Last updated Aug 25, 2026</span></p><div class="btns"><button class="btn pri" onclick="openLink(0)">Open the Safety Handbook</button></div></div>
+ <div class="card"><h3 style="font-size:24px;color:var(--navy)">Safety training</h3><p style="margin:6px 0 0;color:var(--muted)">The Safety training presentation for new hires and refreshers. Do not do a task that needs training, certification, or authorization until it is done.</p><div class="btns"><button class="btn pri" onclick="openLink(2)">Open the training presentation</button></div></div>
+ </div>
+</section>
+<section class="blk"><div class="sh"><h2>What managers do</h2></div>
+ <p style="margin:0 0 12px;font-size:14px"><span class="note">Suggested routine. Safety to confirm</span></p>`+
+steps([["Walk your area before each shift","Look for blocked exits, damaged equipment, missing guards, spills, and PPE that is missing or worn out. Fix it or report it.","Start of shift","You"],["Check training before you assign work","Only trained and authorized employees do forklift, lockout/tagout, rigging, hot work, or respirator tasks. Ask Safety if you are unsure.","Every assignment","You"],["Enforce phone and headphone rules","Personal phones stored and no earbuds in safety-sensitive areas. Supervisors may approve a limited exception.","Every shift","You"],["When someone reports a near miss or stops work","Thank them. Make the area safe. Do not blame or retaliate. Make sure a near miss report is submitted the same day.","Same day","You"],["If there is an incident","Make the area safe, then print the incident report, fill it out, and turn it in immediately to Nate Bennett.","Immediately","You"],["Follow up","Make sure the hazard is fixed. Tell the person who reported it what was done.","Within [X] days","You + Safety"],["Hold a short safety talk","Pick one topic from this page each week and talk it through with your team.","Weekly","You"]])+
+`</section>
+<section class="blk"><div class="sh"><h2>Safety rules at a glance</h2></div><p style="margin:0 0 8px;font-size:14px;color:var(--muted)">A summary of the Safety Handbook. The full handbook and task-specific training always come first.</p>${acc(SAFEQ)}</section>
+<section class="blk"><div class="sh"><h2>Safety links and documents</h2></div><div class="cc" id="slinks"></div><p style="margin:12px 0 0;font-size:13px;color:var(--muted)">Links open in a new tab. <span class="note">Admin: add each address in the SAFE_LINKS list</span></p></section>
+<section class="blk"><div class="sh"><h2>Safety representative</h2></div><div class="cc">
+ <div class="card"><h3>Nate Bennett</h3><p><a href="mailto:NathanielBennett@revitalizemixers.com">NathanielBennett@revitalizemixers.com</a></p></div></div></section>
+</div>`;
+$('#slinks').innerHTML=SAFE_LINKS.map((l,i)=>`<button class="card" style="text-align:left;cursor:pointer;border-left:6px solid var(--gold)" onclick="openLink(${i})"><b style="font:700 19px var(--fh);color:var(--navy);display:block">${l.n}</b><span style="font-size:14px;color:var(--muted)">${l.d}</span></button>`).join('');
+/* checklist + accordion */
+const cbs=[...document.querySelectorAll('.check input')];
+cbs.forEach(c=>c.onchange=()=>{const n=cbs.filter(x=>x.checked).length;$('#pb').style.width=n/cbs.length*100+'%';$('#pt').textContent=n+' of '+cbs.length+' complete'});
+document.querySelectorAll('#acc button').forEach(b=>b.onclick=()=>{const p=b.nextElementSibling;p.classList.toggle('open');b.lastElementChild.textContent=p.classList.contains('open')?'−':'+'});
+</script>
+</body>
+</html>
