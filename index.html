@@ -487,6 +487,12 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
  .card,.step,.formbox{box-shadow:none!important}
  .doc{break-inside:avoid}
 }
+
+.tipcard{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:18px;padding:20px 24px;border:1px solid var(--line);border-left:6px solid var(--gold);box-shadow:var(--sh)}
+.tipcard .tic{width:52px;height:52px;border-radius:14px;background:var(--navy);color:var(--gold);display:grid;place-items:center;flex:none}
+.tipcard .tt{flex:1 1 280px;min-width:0}
+.tipcard h3{font:700 12px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin:0}
+.tipcard p{font-size:17px;margin:6px 0 0;line-height:1.5}
 </style>
 </head>
 <body>
@@ -524,6 +530,7 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
 
 <div class="wrap">
  <div class="tiles" id="tiles" aria-label="Quick access"></div>
+ <div id="tipHome" style="margin-top:30px"></div>
  <section class="blk"><div class="sh"><h2>Quick actions</h2></div>
   <div class="qa">
    <button onclick="show('chk')"><b>My manager checklist</b><span>What to do, and when</span></button>
@@ -765,9 +772,10 @@ after:["HR is notified automatically.", "Do not tell the employee. HR reviews, a
 nm:{n:"Near Miss Report",cat:"Safety",who:"Anyone, including managers reporting for their team",when:"As soon as it is safe, ideally the same shift.",
 f:[["Instructions coming soon","Step-by-step instructions for this form will be added here."]],
 after:["Reporting a near miss in good faith is protected. No one is retaliated against."]},
-si:{n:"Safety Incident Report (printed form)",cat:"Safety",who:"The supervisor or employee involved",when:"Immediately after the incident, once the area is safe.",
-f:[["Instructions coming soon","Step-by-step instructions for filling out the incident report will be added here."]],
-after:["Print the form, fill it out, and turn it in immediately to Nate Bennett: NathanielBennett@revitalizemixers.com."]},
+si:{n:"Safety Incident Report",url:"https://ozinga.sharepoint.com/:w:/s/RMSafety-FormsandSOPs/IQA3CHQ_mYY-SIUPBDizOBXsAcaC7hnHwhVkKmOZDrnmFXg?e=0mo3Aw",lbl:"Download the template",fh:"Who does what",cat:"Safety",who:"All employees, contractors, and visitors. Supervisors, managers, and HR have extra steps.",when:"Right after any incident or near miss. The report is completed before the end of the shift. (SOP effective 11/1/2026, review date 11/23/2026, approved by Hannah Matulis, HR.)",
+f:[["What counts as an incident", "Any unplanned event that results in, or could result in, injury, illness, damage, or disruption. This includes a workplace injury or illness, a near miss, an unsafe condition or hazard, and property or equipment damage."], ["Near miss", "An event that did not cause injury or damage but could have. Report it the same way. Near misses also have their own online form."], ["Employees", "Make sure you and others are safe. Report every incident and near miss to your supervisor immediately. Complete the incident report right after it happens, and turn it in to your supervisor before the end of your shift."], ["Supervisors and managers", "Secure the area to prevent further harm, and make sure first aid or emergency medical services are provided. Tell HR immediately. Review the report for accuracy. Email the completed report to HR and the designated email, and log the event in Origami. Complete any investigation assigned in Origami. Present the incident summary at the monthly safety committee meeting."], ["Human Resources", "Monitor reports for accuracy and completeness. Conduct or assign an investigation. Track corrective actions and follow-up. Manage workers' compensation cases. Contact the Workers' Compensation Specialist as soon as an incident is reported."], ["Going to the doctor or hospital", "The manager or the HR specialist gives permission. Supervisors or HR direct the employee to a designated medical provider. If an employee chooses a personal or non-designated provider without prior authorization, the company's workers' compensation insurance may not cover the cost."]],
+pre:["<b>Immediate response.</b> Stop working if you need to for safety. Provide or call for first aid or medical help. If the incident is severe, call 911 and tell your supervisor immediately.", "<b>Notification.</b> The employee tells their supervisor or manager immediately. The manager makes sure HR is informed. HR informs the Workers' Compensation Specialist.", "<b>Incident report.</b> The involved employees complete the incident report before leaving their shift. If an employee cannot fill it out, a witness or the supervisor can fill it out for them. The supervisor or manager reviews it for accuracy.", "<b>Submission and recordkeeping.</b> The manager emails the report to HR and submits it in Origami, logs the incident in Origami, and completes any investigation assigned in Origami.", "<b>Follow-up.</b> Managers present the incident details at the monthly safety committee meeting. HR makes sure corrective actions are assigned and completed. Supervisors share the findings with staff as part of safety awareness."],
+after:["HR tracks corrective actions and follow-up.", "Findings are shared with staff by supervisors as part of safety awareness."]},
 exc:{n:"Shop Attendance - Excused Absence",url:"https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kglVhz1O10GyItWMb32UC4ErlUIjau9AsMnZnS0lHYZUM0ZNM0xDVVZRSDkyNDAwRUdKWkFCQ1ZWMiQlQCN0PWcu",cat:"Shop attendance",who:"Shop hourly employees",when:"The same day you excuse an absence, late arrival, or early leave.",
 f:[["1. Employee Name", "Full name, as it appears in Paycom."], ["2. Employee ID", "The employee's ID number from Paycom."], ["3. Manager", "Your full name. The form also records your name automatically."], ["4. Points that would have applied", "Number only. Look up the event in the points table. This is how many points the employee would have received if it was not excused."], ["5. Reasons it is excused", "State the reason plainly, and why policy allows excusing it."], ["6. Supporting Documentation", "Required. Attach a doctor's note, call log, or other proof (up to 5 files)."], ["7. Did you update Paycom points?", "Pick Yes only after you have edited the attendance record in Paycom so the event is excused and no points count."]],
 pre:["Go into Paycom first and edit the attendance record so the event is excused.", "Open the form and answer all 7 questions. Attach your supporting documentation.", "Press <b>Submit</b>. The form is the record, and Paycom is the attendance system. Both are required."],
@@ -796,14 +804,14 @@ f:[["1–2. Employee Name and Employee Title", "As in Paycom."], ["3–5. Goal 1
 pre:["Pull up the employee's annual goals. Complete one form for each employee.", "Fill out the form before the meeting, but do not submit it yet.", "Hold the quarterly meeting: explain your ratings, go over each goal, and listen to the employee.", "Ask the employee for feedback. <span class='note'>Feedback form is being built</span>", "Press <b>Submit</b> after the meeting. A submitted form cannot be edited."],
 after:["HR is notified automatically.", "Responses are used for the quarterly performance and development conversation."]},
 };
-function formBtns(id){const P=FORMS[id].print!==undefined?`<button class="btn sec" onclick="openPrint('${id}')">Printable copy</button>`:'';return `<div class="btns"><button class="btn pri" onclick="openForm('${id}')">${FORMS[id].print!==undefined?'Open online form':'Submit online'}</button>${P}<button class="btn sec" onclick="openGuide('${id}')">How to fill it out</button></div>`}
+function formBtns(id){const P=FORMS[id].print!==undefined?`<button class="btn sec" onclick="openPrint('${id}')">Printable copy</button>`:'';return `<div class="btns"><button class="btn pri" onclick="openForm('${id}')">${FORMS[id].lbl||(FORMS[id].print!==undefined?'Open online form':'Submit online')}</button>${P}<button class="btn sec" onclick="openGuide('${id}')">How to fill it out</button></div>`}
 function openPrint(id){const u=FORMS[id].print;if(u)window.open(u,'_blank','noopener');else toast("Printable copy not added yet.")}
 /* Keeps popups next to where the user tapped. In a tall embedded frame (Teams phone app), a fixed popup can land off screen. */
 window.__cy=200;['click','touchstart'].forEach(ev=>document.addEventListener(ev,e=>{const p=(e.touches&&e.touches[0])||e;if(p&&p.pageY!=null)window.__cy=p.pageY},true));
 function placeModal(){const m=$('#gm'),b=$('#gb');m.hidden=false;const H=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,innerHeight);m.style.height=H+'px';const y=Math.max(0,Math.min(window.__cy-80,H-b.offsetHeight-24));m.style.paddingTop=Math.max(16,y)+'px';setTimeout(()=>{try{b.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}},50)}
 function toast(m){const t=$('#toast');t.textContent=m;t.style.top=Math.max(12,window.__cy-70)+'px';t.hidden=false;clearTimeout(window._t);window._t=setTimeout(()=>t.hidden=true,3800)}
 function openForm(id){const u=FORMS[id].url;if(u)window.open(u,'_blank','noopener');else toast("Form link not added yet. It is set when the Microsoft Form is built.")}
-function openGuide(id){const F=FORMS[id];$('#gb').innerHTML=`<button class="gx" onclick="closeGuide()" aria-label="Close">×</button><span class="tag">${F.cat}</span><h2 id="gt" style="margin-top:8px">How to fill out: ${F.n}</h2><p style="color:var(--muted);font-size:14px"><b>Who:</b> ${F.who}<br><b>When:</b> ${F.when}</p><div class="btns" style="margin:12px 0"><button class="btn pri" onclick="openForm('${id}')">Open the Microsoft Form</button></div>${F.pre?'<h4>Step by step</h4><ol style="font-size:15px;padding-left:20px">'+F.pre.map(a=>'<li style="margin:4px 0">'+a+'</li>').join('')+'</ol>':''}<h4>Field by field, in order</h4><table class="ft">${F.f.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table><h4>After you submit</h4><ol style="font-size:14px;padding-left:20px">${F.after.map(a=>`<li>${a}</li>`).join('')}</ol>`;placeModal();$('#gm').querySelector('.gx').focus()}
+function openGuide(id){const F=FORMS[id];$('#gb').innerHTML=`<button class="gx" onclick="closeGuide()" aria-label="Close">×</button><span class="tag">${F.cat}</span><h2 id="gt" style="margin-top:8px">How to fill out: ${F.n}</h2><p style="color:var(--muted);font-size:14px"><b>Who:</b> ${F.who}<br><b>When:</b> ${F.when}</p><div class="btns" style="margin:12px 0"><button class="btn pri" onclick="openForm('${id}')">${F.lbl||'Open the Microsoft Form'}</button></div>${F.pre?'<h4>Step by step</h4><ol style="font-size:15px;padding-left:20px">'+F.pre.map(a=>'<li style="margin:4px 0">'+a+'</li>').join('')+'</ol>':''}<h4>${F.fh||'Field by field, in order'}</h4><table class="ft">${F.f.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table><h4>After you submit</h4><ol style="font-size:14px;padding-left:20px">${F.after.map(a=>`<li>${a}</li>`).join('')}</ol>`;placeModal();$('#gm').querySelector('.gx').focus()}
 function closeGuide(){$('#gm').hidden=true}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeGuide()});
 $('#gm').addEventListener('click',e=>{if(e.target.id==='gm')closeGuide()});
@@ -886,7 +894,7 @@ rhq();
 /* forms library */
 $('#forms').innerHTML=hero('Forms','Every form is a Microsoft Form. No paper copies. Open the form, or see how to fill it out first.')+`<div class="wrap pull"><div class="card"><input class="dsearch" id="fs" placeholder="Search forms…" aria-label="Search forms" oninput="ff()"><div id="fl"></div></div></div>`;
 function ff(){const q=$('#fs').value.toLowerCase();const g={};Object.keys(FORMS).filter(k=>(FORMS[k].n+FORMS[k].cat+FORMS[k].who).toLowerCase().includes(q)).forEach(k=>{(g[FORMS[k].cat]=g[FORMS[k].cat]||[]).push(k)});
- $('#fl').innerHTML=['Shop attendance','Conduct and performance','New-hire check-ins (30/60/90 day)','Reviews and goal setting','Safety'].filter(c=>g[c]).concat(Object.keys(g).filter(c=>!['Shop attendance','Conduct and performance','New-hire check-ins (30/60/90 day)','Reviews and goal setting','Safety'].includes(c))).map(c=>`<h3 style="font:700 22px var(--fh);color:var(--navy);margin:22px 0 4px;padding-bottom:6px;border-bottom:3px solid var(--gold)">${c}</h3>`+g[c].map(k=>{const F=FORMS[k];return `<div class="doc" style="flex-wrap:wrap"><div style="flex:1;min-width:220px"><b>${F.n}</b><span class="m">${F.who}</span></div><div class="btns" style="margin:0"><button class="btn pri" style="padding:8px 14px" onclick="openForm('${k}')">Submit online</button>${F.print!==undefined?`<button class="btn sec" style="padding:8px 14px" onclick="openPrint('${k}')">Printable copy</button>`:''}<button class="btn sec" style="padding:8px 14px" onclick="openGuide('${k}')">How to fill it out</button></div></div>`}).join('')).join('')||'<p style="color:var(--muted)">No forms match.</p>'}ff();
+ $('#fl').innerHTML=['Shop attendance','Conduct and performance','New-hire check-ins (30/60/90 day)','Reviews and goal setting','Safety'].filter(c=>g[c]).concat(Object.keys(g).filter(c=>!['Shop attendance','Conduct and performance','New-hire check-ins (30/60/90 day)','Reviews and goal setting','Safety'].includes(c))).map(c=>`<h3 style="font:700 22px var(--fh);color:var(--navy);margin:22px 0 4px;padding-bottom:6px;border-bottom:3px solid var(--gold)">${c}</h3>`+g[c].map(k=>{const F=FORMS[k];return `<div class="doc" style="flex-wrap:wrap"><div style="flex:1;min-width:220px"><b>${F.n}</b><span class="m">${F.who}</span></div><div class="btns" style="margin:0"><button class="btn pri" style="padding:8px 14px" onclick="openForm('${k}')">${F.lbl||'Submit online'}</button>${F.print!==undefined?`<button class="btn sec" style="padding:8px 14px" onclick="openPrint('${k}')">Printable copy</button>`:''}<button class="btn sec" style="padding:8px 14px" onclick="openGuide('${k}')">How to fill it out</button></div></div>`}).join('')).join('')||'<p style="color:var(--muted)">No forms match.</p>'}ff();
 /* excused absences + document it right */
 $('#exc').innerHTML=steps([["Decide","Only excuse an absence when policy allows and you have a clear reason. <span class=note>HR to confirm who may excuse and which reasons qualify</span>","Same day","You"],["Document it","Submit the Shop Attendance - Excused Absence form: employee, points that would have applied, reason, and supporting documentation.","Same day","You → HR"],["Update Paycom","Go into Paycom and edit the attendance record so the event is excused and no points count. <span class=note>Admin: add the exact Paycom menu path</span>","Same day","You"],["Check the points","Confirm the employee's 12-month total no longer includes the event.","Within [X] day","You"],["Protected leave?","If the reason may be FMLA, medical, pregnancy-related, or another protected reason, tell HR. These never earn points.","Right away","You → HR"]])+`<p style="font-size:14px;margin:12px 0 0"><b>Both steps are required:</b> the form is the record, and Paycom is the attendance system.</p>`+formBtns('exc');
 $('#doc').innerHTML=`<p style="font-size:14px;margin:0 0 6px"><b>The rule: facts, not opinions.</b> Write what happened, when, and who saw it. Never write how you feel about the person.</p>`+acc([["No-call / no-show (9 points)","<p>Write down: the date and shift start; the time you noticed; every attempt to reach the employee (time and method); when or if they contacted you; who you checked with.</p>"],["Leaving mid-shift without approval (9 points, HR review)","<p>Write down: the time they left; what was said before; who witnessed it; whether anyone approved it. Call HR the same day. This may result in termination after HR review.</p>"],["Late arrival or early leave","<p>Write down: scheduled time vs. the Paycom punch; whether and when they called in; the reason given; how much notice you got. Remember the 5-minute grace period for lateness.</p>"]]);
@@ -932,8 +940,8 @@ const TILES=[{n:'Paycom',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22"
  {n:'SOPs',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgA8R3vzlV3YTIeNSzWeqhO2ASttwzEPWdx7oofsCT55PSQ?e=3QbZrU',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 12h6M9 16h6"/></svg>`},
  {n:'Manuals',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgD9O8PMLsxYQpkKoDkDZrJMAedE-ZpPfuKOutauGcuVGjc?e=dAf42u',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6"/></svg>`},
  {n:'Safety',a:'safety',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>`},
+ {n:'New Hire Safety Training',u:'https://ozinga.sharepoint.com/:f:/s/RMSafety-FormsandSOPs/IgALt0d_PTymQodiDp13EXcSASfBEO8m6ClAZchDq7vu2BA?e=bMcGci',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>`},
  {n:'IT Helpdesk',m:'Helpdesk@ozinga.com',subj:'IT Help Request',body:'Describe the problem:%0D%0A%0D%0AYour name and location:%0D%0A%0D%0AHow urgent is it:%0D%0A',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>`},
- {n:'Training',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg>`},
  {n:'Benefits',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/></svg>`},
 ];
 function goSafety(){show('safe')}
@@ -946,9 +954,11 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="http"]'
 /* ===== safety page ===== */
 /* Edit u:'' to add the web address for each safety link */
 const SAFE_LINKS=[
- {n:'Safety Handbook',d:'The full handbook (last updated Aug 25, 2026)',u:''},
- {n:'Safety incident report template',d:'Print, fill out, and turn in immediately to Nate Bennett',u:''},
+ {n:'Safety Handbook',d:'The full handbook (last updated Aug 25, 2026)',u:'https://ozinga.sharepoint.com/:f:/s/RMSafety-RMSafetyHandbook/IgCqKebjkR4vSZfOIOzg5tDpAQYAnYVleLYBB1ka5egCZ5o?e=s9B9SX'},
+ {n:'Safety incident report template',d:'Print, fill out, and turn in immediately to Nate Bennett',u:'https://ozinga.sharepoint.com/:w:/s/RMSafety-FormsandSOPs/IQA3CHQ_mYY-SIUPBDizOBXsAcaC7hnHwhVkKmOZDrnmFXg?e=0mo3Aw'},
  {n:'Safety training presentation',d:'Slides for safety training',u:''},
+ {n:'New Hire - Safety Training',d:'Safety training materials for new hires',u:'https://ozinga.sharepoint.com/:f:/s/RMSafety-FormsandSOPs/IgALt0d_PTymQodiDp13EXcSASfBEO8m6ClAZchDq7vu2BA?e=bMcGci'},
+ {n:'Forklift Operator Handbook',d:'Handbook for forklift operators',u:'https://ozinga.sharepoint.com/:f:/s/RMSafety-FormsandSOPs/IgB66fgq3TbiQba2yErbLnw0ASEq1ulHEljjdv3YG8McEwc?e=iDh2g0'},
  {n:'Lockout/tagout program and procedures',d:'Energy-control program and equipment procedures',u:''},
  {n:'PPE hazard assessment',d:'Required PPE by task and area',u:''},
  {n:'Safety data sheets (SDS)',d:'Chemical and paint product information',u:''},
@@ -969,6 +979,7 @@ const SAFEQ=[
 ['Training and records',ul(['Attend required safety training and refreshers.','Do not perform a task that needs training, certification, fit testing, or authorization until it is done.','Follow the current version of the safety program, SOP, permit, or equipment instruction that applies.'])]];
 $('#safe').innerHTML=hero('Safety','Report near misses and incidents, find the Safety Handbook and training, and know when to stop work.')+
 `<div class="wrap pull">
+<div id="tipSafe" style="margin-bottom:22px"></div>
 <div class="grid2" style="grid-template-columns:1fr 1fr;align-items:stretch">
  <div class="card feature"><span class="tag">Track 1 · Near miss</span><h3>Report a near miss</h3><p style="margin:0;color:var(--muted)">Something almost caused an injury or damage, but nobody was hurt. Submit the Near Miss Report online in Microsoft Forms. It takes about two minutes.</p>${formBtns('nm')}</div>
  <div class="card feature"><span class="tag">Track 2 · Safety incident</span><h3>Report a safety incident</h3><p style="margin:0 0 8px;color:var(--muted)">Someone was hurt or became ill at work, or there was property damage, a vehicle accident, a fire, or a chemical release.</p><p style="margin:0;font-size:15px"><b>This is a paper form.</b> Print the template, fill it out, and turn it in <b>immediately</b> to Nate Bennett: <a href="mailto:NathanielBennett@revitalizemixers.com">NathanielBennett@revitalizemixers.com</a></p><div class="btns"><button class="btn pri" onclick="openLink(1)">Open the incident template</button><button class="btn sec" onclick="openGuide('si')">How to fill it out</button></div></div>
@@ -985,6 +996,8 @@ $('#safe').innerHTML=hero('Safety','Report near misses and incidents, find the S
  <div class="grid2" style="grid-template-columns:1fr 1fr;align-items:stretch">
  <div class="card"><h3 style="font-size:24px;color:var(--navy)">Safety Handbook</h3><p style="margin:6px 0 0;color:var(--muted)">The core safety rules for the shop. It works alongside the Employee Handbook and task-specific training, and the most specific procedure always applies. Every employee signs one general acknowledgment of receipt. <span class="note">Last updated Aug 25, 2026</span></p><div class="btns"><button class="btn pri" onclick="openLink(0)">Open the Safety Handbook</button></div></div>
  <div class="card"><h3 style="font-size:24px;color:var(--navy)">Safety training</h3><p style="margin:6px 0 0;color:var(--muted)">The Safety training presentation for new hires and refreshers. Do not do a task that needs training, certification, or authorization until it is done.</p><div class="btns"><button class="btn pri" onclick="openLink(2)">Open the training presentation</button></div></div>
+ <div class="card"><h3 style="font-size:24px;color:var(--navy)">New-hire safety training</h3><p style="margin:6px 0 0;color:var(--muted)">The safety training materials every new hire completes. Make sure it is done before they do tasks that need training or authorization.</p><div class="btns"><button class="btn pri" onclick="openLink(3)">Open new-hire safety training</button></div></div>
+ <div class="card"><h3 style="font-size:24px;color:var(--navy)">Forklift Operator Handbook</h3><p style="margin:6px 0 0;color:var(--muted)">The handbook for forklift operators. Only trained, evaluated, and authorized employees may operate a forklift.</p><div class="btns"><button class="btn pri" onclick="openLink(4)">Open the Forklift Operator Handbook</button></div></div>
  </div>
 </section>
 <section class="blk"><div class="sh"><h2>What managers do</h2></div>
@@ -1012,6 +1025,50 @@ document.querySelectorAll('#acc button').forEach(b=>{b.setAttribute('aria-expand
   if(e.key==='ArrowDown'){e.preventDefault();(L[i+1]||L[0]).focus()}else if(e.key==='ArrowUp'){e.preventDefault();i?L[i-1].focus():q.focus()}else if(e.key==='Escape'){q.focus()}});
  document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')&&$('#home').classList.contains('on')){e.preventDefault();q.focus()}});
 })();
+
+/* ===== safety tip of the day ===== */
+/* Edit or add tips here: ['Topic','Tip text']. One tip shows per day and the list repeats. */
+const SAFETY_TIPS=[
+ ['Stop-work','You have the authority to stop work when there is an immediate safety risk, a required control is missing, or you are not trained to continue. Stop safely, warn coworkers, and tell a supervisor.'],
+ ['Near misses','If something almost hurt someone, report it, even if nobody was injured. A near miss is a free warning.'],
+ ['No retaliation','No one is retaliated against for a good-faith safety report. If you see something, say something.'],
+ ['Guards','Never remove, bypass, or defeat a guard or safety device. If it is damaged or missing, report it right away.'],
+ ['Training','Do not start a task that needs training, certification, or authorization until you have it. Ask first if the safe method is unclear.'],
+ ['Danger zones','Stay out of the danger zone around energized, moving, elevated, pressurized, or unsecured equipment.'],
+ ['Reporting','Report unsafe conditions, damaged safety equipment, and defective equipment as soon as you see them.'],
+ ['Following instructions','Follow all safety training, signs, posted rules, and supervisor directions, every time.'],
+ ['PPE','Wear the required boots, eye and face protection, gloves, hearing protection, and high-visibility gear for the task and the area.'],
+ ['PPE checks','Inspect your PPE before each use. Do not use PPE that is damaged, defective, or contaminated.'],
+ ['PPE fit','If your PPE is missing, damaged, or does not fit, tell your supervisor before you start the job.'],
+ ['Lockout/tagout','Before servicing or maintenance, follow the energy-control procedure and isolate every hazardous energy source it requires.'],
+ ['Lockout/tagout','Never start or operate locked or tagged equipment, and never remove or bypass someone else\'s lock or tag.'],
+ ['Mixer drums','Do not enter a mixer drum or other powered component danger zone unless energy control is in place and you are trained.'],
+ ['Lockout/tagout','Only trained and authorized employees may apply or remove lockout/tagout devices. Report a missing procedure or an unexpected energy source before continuing.'],
+ ['Blocking','Use required blocking, stands, or approved supports before anyone enters the area under or beside an elevated truck, body, chute, or component.'],
+ ['Blocking','Never improvise supports. If a support method or load stability is in question, stop and tell supervision.'],
+ ['Forklifts','Only trained, evaluated, and authorized employees operate forklifts. Never lift a person on a forklift unless the Company has authorized it.'],
+ ['Cranes and rigging','Use cranes, hoists, and rigging within their rated capacity, and stay clear of suspended loads.'],
+ ['Rigging checks','Do not use a damaged sling, hook, or hoist. Take it out of service and report it.'],
+ ['Hot work','Only trained and authorized employees do welding, cutting, or other hot work, in an approved area or with the controls set for the task.'],
+ ['Hot work','Before hot work, remove or protect combustible materials and follow any required permit. Stop immediately if fire protection or ventilation is missing.'],
+ ['Used drums and tanks','Take special precautions before welding, cutting, or heating used drums, tanks, or containers.'],
+ ['Hearing protection','Follow all posted or assigned hearing-protection requirements. Loud work needs protection every time.'],
+ ['Respirators','When a respirator is required, you need the medical evaluation, fit test, and training first.'],
+ ['Phones','Store your personal phone in a locker or designated place before you enter a safety-sensitive area.'],
+ ['Phones','No personal phone use while machinery, power tools, or vehicles are being operated, repaired, moved, or tested.'],
+ ['Earbuds','Wear no more than one earbud in safety-sensitive areas, and keep it low enough that you can hear alarms, backup warnings, and instructions.'],
+ ['Driving','Never hold or use a handheld phone while driving for Company business. Pull over and park first.'],
+ ['Injuries','Report every work-related injury, illness, accident, and property damage promptly, even if no one was hurt.'],
+ ['Emergencies','Call 911 for medical, fire, or other emergencies, then tell your supervisor.'],
+ ['First aid','Only trained, designated employees give first aid. If blood or bodily fluid is present, contact Safety or supervision. Do not clean it up yourself.'],
+ ['Fire alarms','Treat every fire alarm as real. Evacuate to the assembly area.'],
+ ['Severe weather','If a tornado warning or outdoor siren sounds, go to the nearest weather shelter.'],
+ ['Incident reports','After an incident, complete the incident report before the end of your shift. If you cannot, a witness or your supervisor can fill it out for you.'],
+ ['Road testing','Employees who road-test customer trucks that require a CDL must follow the Company DOT Drug and Alcohol Policy and take required testing.']];
+let tipOff=0;
+function tipIdx(){const n=new Date(),d=Math.floor((new Date(n.getFullYear(),n.getMonth(),n.getDate())-new Date(n.getFullYear(),0,0))/864e5);return((d+tipOff)%SAFETY_TIPS.length+SAFETY_TIPS.length)%SAFETY_TIPS.length}
+function renderTips(){const t=SAFETY_TIPS[tipIdx()];const h=`<div class="tipcard"><div class="tic" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div><div class="tt"><h3>Safety tip of the day · ${t[0]}</h3><p>${t[1]}</p></div><div class="btns" style="margin:0"><button class="btn sec" style="padding:8px 14px" onclick="tipOff++;renderTips()">Another tip</button></div></div>`;['tipHome','tipSafe'].forEach(i=>{const e=document.getElementById(i);if(e)e.innerHTML=h})}
+renderTips();
 </script>
 </body>
 </html>
