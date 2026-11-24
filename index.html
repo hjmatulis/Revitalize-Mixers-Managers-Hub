@@ -278,9 +278,9 @@ footer b{color:#fff}
 .prog{position:relative;height:10px;background:var(--paper2);border-radius:999px;margin:10px 0 14px;overflow:hidden}
 .prog i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold-d),var(--gold) 60%,var(--gold-l));transition:width .5s var(--ease)}
 .check.complete .prog i,.chk-top.complete .prog i{background:linear-gradient(90deg,var(--black),#3a3631)}
-#pt,#ckt{font-weight:600}
-.check.complete #pt,.chk-top.complete #ckt{color:var(--black)}
-.check.complete #pt:before,.chk-top.complete #ckt:before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:var(--gold);color:var(--black);font-size:12px;vertical-align:1px;animation:tick .4s var(--spring)}
+#pt,#ckt,.ptxt{font-weight:600}
+.check.complete #pt,.chk-top.complete #ckt,.check.complete .ptxt{color:var(--black)!important}
+.check.complete .ptxt:before,.check.complete #pt:before,.chk-top.complete #ckt:before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border-radius:50%;background:var(--gold);color:var(--black);font-size:12px;vertical-align:1px;animation:tick .4s var(--spring)}
 .check.complete{border-color:var(--gold-line);box-shadow:0 0 0 4px rgba(250,182,30,.16),var(--sh)}
 /* manager checklist */
 .chk-top{display:flex;gap:18px 28px;align-items:center;flex-wrap:wrap;justify-content:space-between}
@@ -493,6 +493,32 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
 .tipcard .tt{flex:1 1 280px;min-width:0}
 .tipcard h3{font:700 12px var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin:0}
 .tipcard p{font-size:17px;margin:6px 0 0;line-height:1.5}
+
+/* Discipline Center "track" on Home */
+.dc-home .dstart{flex-direction:row;align-items:center;justify-content:space-between;gap:24px}
+.dc-home .dstart .dtxt{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:10px}
+.dc-home .dstart .btns{flex:0 0 auto}
+.road{position:relative;height:132px;margin:20px 0 0;border-radius:16px;background:linear-gradient(#2a2926,#191816);overflow:hidden;box-shadow:inset 0 0 0 1px #000,var(--sh1);pointer-events:none}
+.road:before,.road:after{content:"";position:absolute;left:0;right:0;height:3px;background:var(--gold)}
+.road:before{top:8px}.road:after{bottom:8px}
+.heroroad{margin:30px 0 0;background:linear-gradient(#262522,#171614);box-shadow:inset 0 0 0 1px rgba(250,182,30,.25),0 18px 40px -20px rgba(0,0,0,.8)}
+.truck .puff{opacity:0;animation:puff 1.8s ease-out infinite}.truck .puff.p2{animation-delay:.9s}
+@keyframes puff{0%{opacity:.55;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(-14px,-22px) scale(1.7)}}
+.roadline{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,#f3eedf 0 34px,transparent 34px 70px);animation:roadmove 1s linear infinite;opacity:.9}
+@keyframes roadmove{to{background-position:-70px 0}}
+.truckwrap{position:absolute;bottom:10px;left:-280px;animation:drive 18s linear infinite}
+@keyframes drive{from{left:-280px}to{left:100%}}
+.truck{display:block;animation:bump .45s ease-in-out infinite alternate}
+@keyframes bump{from{transform:translateY(0)}to{transform:translateY(-1.5px)}}
+.truck .wheel{transform-box:fill-box;transform-origin:center;animation:wspin .55s linear infinite}
+@keyframes wspin{to{transform:rotate(360deg)}}
+.truck .spiral{animation:dspin 1.1s linear infinite}
+@keyframes dspin{to{transform:translateX(26px)}}
+.startline{height:12px;background:conic-gradient(#111 25%,#fff 0 50%,#111 0 75%,#fff 0) 0 0/24px 24px;border-radius:4px;margin:18px 0;box-shadow:0 0 0 1px var(--line2)}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.lanes .lane{border-top:0}
+@media(max-width:720px){.lanes{grid-template-columns:1fr}.dc-home .dstart{flex-direction:column;align-items:flex-start}.road{height:104px}.truck{width:190px;height:83px}}
+@media(prefers-reduced-motion:reduce){.truckwrap{animation:none;left:calc(50% - 135px)}.roadline,.truck,.truck .wheel,.truck .spiral,.truck .puff{animation:none}.truck .puff{opacity:0}}
 </style>
 </head>
 <body>
@@ -526,6 +552,32 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
   <button class="chip" onclick="ask(this.textContent)">Where is the safety incident form?</button>
  </div>
  <div id="answer" role="status" aria-live="polite"></div>
+ <div class="road heroroad" aria-hidden="true"><div class="roadline"></div><div class="truckwrap"><svg class="truck" viewBox="0 0 320 140" width="270" height="118" aria-hidden="true" focusable="false">
+      <defs><clipPath id="drumclip"><path d="M30 96 L40 38 Q43 22 62 24 L156 46 Q204 58 206 84 L206 96 Z"/></clipPath></defs>
+      <ellipse cx="160" cy="136" rx="150" ry="3.5" fill="rgba(0,0,0,.5)"/>
+      <rect x="16" y="95" width="276" height="9" rx="3" fill="#2c2b28"/>
+      <rect x="150" y="104" width="38" height="12" rx="3" fill="#3a3834"/>
+      <path d="M36 98 L8 118 L22 124 L52 104 Z" fill="#8d897f"/>
+      <path d="M32 84 L10 108" stroke="#FAB61E" stroke-width="4" stroke-linecap="round"/>
+      <path d="M30 96 L40 38 Q43 22 62 24 L156 46 Q204 58 206 84 L206 96 Z" fill="#FAB61E"/>
+      <g clip-path="url(#drumclip)"><g class="spiral" stroke="#C98A00" stroke-width="7" fill="none" opacity=".85"><path d="M-40 110 Q-14 60 20 8"/><path d="M-6 110 Q20 60 54 8"/><path d="M28 110 Q54 60 88 8"/><path d="M62 110 Q88 60 122 8"/><path d="M96 110 Q122 60 156 8"/><path d="M130 110 Q156 60 190 8"/><path d="M164 110 Q190 60 224 8"/><path d="M198 110 Q224 60 258 8"/><path d="M232 110 Q258 60 292 8"/></g>
+        <ellipse cx="206" cy="86" rx="14" ry="30" fill="#E9A410"/>
+        <path d="M30 96 L40 38 Q43 22 62 24 L68 26 L58 96 Z" fill="#1c1b19" opacity=".25"/></g>
+      <path d="M30 96 L40 38 Q43 22 62 24 L156 46 Q204 58 206 84 L206 96 Z" fill="none" stroke="#111" stroke-width="2.5"/>
+      <ellipse cx="50" cy="60" rx="9" ry="36" transform="rotate(-6 50 60)" fill="#111" stroke="#FAB61E" stroke-width="2"/>
+      <path d="M34 92 Q60 98 86 94 M112 99 Q140 96 168 92" stroke="#111" stroke-width="3" fill="none"/>
+      <text x="76" y="68" transform="rotate(10 76 68)" font-family="Rajdhani,Bahnschrift,Arial,sans-serif" font-weight="700" font-size="14.5" letter-spacing="1.4" fill="#111">REVITALIZE</text>
+      <path d="M24 44 L28 96" stroke="#6a6760" stroke-width="3"/><path d="M23 56 H31 M24 68 H32 M25 80 H33" stroke="#6a6760" stroke-width="2.5"/>
+      <rect x="212" y="6" width="5" height="54" rx="2" fill="#55524c"/><rect x="210" y="3" width="9" height="5" rx="2" fill="#2c2b28"/>
+      <circle class="puff" cx="214" cy="0" r="4" fill="#cfcabd"/><circle class="puff p2" cx="214" cy="0" r="3" fill="#cfcabd"/>
+      <path d="M220 96 V50 Q220 40 230 40 H262 Q270 40 274 46 L296 76 Q300 82 300 90 V96 Z" fill="#FAB61E" stroke="#111" stroke-width="2"/>
+      <path d="M228 47 H258 L280 74 H228 Z" fill="#26241f"/><path d="M233 49 H245 L233 68 Z" fill="rgba(255,255,255,.22)"/>
+      <path d="M226 78 H262" stroke="#111" stroke-width="1.5"/><rect x="284" y="72" width="10" height="16" rx="2" fill="#111"/>
+      <rect x="295" y="76" width="6" height="6" rx="1.5" fill="#FFF6DF"/><rect x="292" y="94" width="14" height="9" rx="2" fill="#111"/>
+      <rect x="216" y="78" width="6" height="9" rx="1" fill="#111"/>
+      <path d="M56 112 Q56 90 78 90 Q100 90 100 112 M96 112 Q96 90 118 90 Q140 90 140 112 M228 112 Q228 90 250 90 Q272 90 272 112" fill="none" stroke="#111" stroke-width="3"/>
+      <g class="wheel"><circle cx="78" cy="112" r="19" fill="#111"/><circle cx="78" cy="112" r="15" fill="none" stroke="#2c2b28" stroke-width="2"/><circle cx="78" cy="112" r="10" fill="#cfcabd"/><g stroke="#77736a" stroke-width="2.5"><line x1="78" y1="102" x2="78" y2="122" transform="rotate(0 78 112)"/><line x1="78" y1="102" x2="78" y2="122" transform="rotate(60 78 112)"/><line x1="78" y1="102" x2="78" y2="122" transform="rotate(120 78 112)"/></g><circle cx="78" cy="112" r="3.5" fill="#111"/></g><g class="wheel"><circle cx="118" cy="112" r="19" fill="#111"/><circle cx="118" cy="112" r="15" fill="none" stroke="#2c2b28" stroke-width="2"/><circle cx="118" cy="112" r="10" fill="#cfcabd"/><g stroke="#77736a" stroke-width="2.5"><line x1="118" y1="102" x2="118" y2="122" transform="rotate(0 118 112)"/><line x1="118" y1="102" x2="118" y2="122" transform="rotate(60 118 112)"/><line x1="118" y1="102" x2="118" y2="122" transform="rotate(120 118 112)"/></g><circle cx="118" cy="112" r="3.5" fill="#111"/></g><g class="wheel"><circle cx="250" cy="112" r="19" fill="#111"/><circle cx="250" cy="112" r="15" fill="none" stroke="#2c2b28" stroke-width="2"/><circle cx="250" cy="112" r="10" fill="#cfcabd"/><g stroke="#77736a" stroke-width="2.5"><line x1="250" y1="102" x2="250" y2="122" transform="rotate(0 250 112)"/><line x1="250" y1="102" x2="250" y2="122" transform="rotate(60 250 112)"/><line x1="250" y1="102" x2="250" y2="122" transform="rotate(120 250 112)"/></g><circle cx="250" cy="112" r="3.5" fill="#111"/></g>
+    </svg></div></div>
 </div></section>
 
 <div class="wrap">
@@ -540,11 +592,12 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
    <button onclick="show('rep')"><b>Someone reported a concern to me: what do I do?</b><span>Harassment, discrimination, retaliation, or threats: what to do right now and who to call</span></button>
    <button onclick="openForm('nm')"><b>Report a near miss</b><span>Safety. Takes about two minutes</span></button>
   </div></section>
- <section class="blk"><div class="sh"><h2>Discipline Center</h2></div>
-  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
-   <div class="card feature"><span class="tag">Start here</span><h3>Not sure which discipline process to use?</h3><p style="margin:0;color:var(--muted);font-size:14px">There are two: Shop Attendance (points, shop hourly employees only) and Standard Discipline (performance, conduct, and policy violations, all employees). Answer one quick question and we'll point you to the right process and form.</p><div class="btns"><button class="btn pri" onclick="show('disc')">Find my process →</button></div></div>
-   <div class="card feature"><span class="tag">Track A · SHOP ONLY</span><h3>Shop Attendance</h3><p style="margin:0;color:var(--muted);font-size:14px"><b>SHOP EMPLOYEES ONLY.</b> Points, tardies, call-outs, and no-call/no-shows.</p><div class="btns"><button class="btn sec" onclick="show('att')">View process</button></div></div>
-   <div class="card feature"><span class="tag">Track B · ALL EMPLOYEES</span><h3>Standard Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Performance, conduct, and policy violations.</p><div class="btns"><button class="btn sec" onclick="show('std')">View process</button></div></div>
+ <section class="blk dc-home"><div class="sh"><h2>Discipline Center</h2></div>
+  <div class="card feature dstart"><div class="dtxt"><span class="tag">Start here</span><h3>Not sure which discipline process to use?</h3><p style="margin:0;color:var(--muted);font-size:14px">There are two: Shop Attendance (points, shop hourly employees only) and Standard Discipline (performance, conduct, and policy violations, all employees). Answer one quick question and we'll point you to the right process and form.</p></div><div class="btns" style="margin:0"><button class="btn pri" onclick="show('disc')">Find my process →</button></div></div>
+  <div class="startline" aria-hidden="true"></div>
+  <div class="lanes">
+   <div class="card feature lane"><span class="tag">Track A · SHOP ONLY</span><h3>Shop Attendance</h3><p style="margin:0;color:var(--muted);font-size:14px"><b>SHOP EMPLOYEES ONLY.</b> Points, tardies, call-outs, and no-call/no-shows.</p><div class="btns"><button class="btn sec" onclick="show('att')">View process</button></div></div>
+   <div class="card feature lane"><span class="tag">Track B · ALL EMPLOYEES</span><h3>Standard Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Performance, conduct, and policy violations.</p><div class="btns"><button class="btn sec" onclick="show('std')">View process</button></div></div>
   </div></section>
 
 
@@ -594,16 +647,27 @@ a.pol:hover{background:var(--gold-t);color:var(--black);transform:translateX(3px
   </div></section>
  <section class="blk grid2">
   <div><div class="sh"><h2>Before you submit</h2></div>
-   <div class="card check">
-    <div class="prog"><i id="pb"></i></div>
+   <div class="card check" style="margin-bottom:18px"><span class="tag">Track A · Shop attendance (points)</span><h3 style="font-size:22px;margin:10px 0 2px">Before you submit a shop attendance form</h3>
+    <div class="prog"><i></i></div>
+    <label><input type="checkbox"> I checked the employee's current points in Paycom</label>
+    <label><input type="checkbox"> The event is not protected (protected leave, an approved accommodation, or approved time off). Protected events never earn points</label>
+    <label><input type="checkbox"> I picked the right event and point value from the table</label>
+    <label><input type="checkbox"> I used the right threshold: standard employee or new hire (first 90 days)</label>
+    <label><input type="checkbox"> I applied the points the same way as for others in the same situation</label>
+    <label><input type="checkbox"> I filled out the form but did not submit it until the employee acknowledged it</label>
+    <div class="ptxt" style="font-size:13px;color:var(--muted);margin-top:8px">0 of 6 complete</div>
+   </div>
+   <div class="card check" style="margin-bottom:18px"><span class="tag">Track B · Standard discipline</span><h3 style="font-size:22px;margin:10px 0 2px">Before you submit a standard discipline form</h3>
+    <div class="prog"><i></i></div>
     <label><input type="checkbox"> I have the facts: dates, times, and witnesses</label>
-    <label><input type="checkbox"> I checked the employee's prior record and active points</label>
+    <label><input type="checkbox"> I checked the employee's prior record and earlier warnings</label>
     <label><input type="checkbox"> I applied the policy the same way as for others in the same situation</label>
     <label><input type="checkbox"> I gave the employee a chance to respond</label>
-    <label><input type="checkbox"> I used the right track and the right step</label>
-    <label><input type="checkbox"> I filled out the form but did not submit it until the employee acknowledged it</label>
-    <div id="pt" style="font-size:13px;color:var(--muted);margin-top:8px">0 of 6 complete</div>
-   </div></div>
+    <label><input type="checkbox"> I picked the right step: coaching, verbal, or written warning, or a PIP, suspension, or termination request</label>
+    <label><input type="checkbox"> For a coaching, verbal, or written warning, I filled out the form but did not submit it until the employee acknowledged it. PIP, suspension, and termination requests are submitted right away</label>
+    <div class="ptxt" style="font-size:13px;color:var(--muted);margin-top:8px">0 of 6 complete</div>
+   </div>
+  </div>
   <div><div class="sh"><h2>Common mistakes</h2></div>
    <div class="acc" id="acc">
     <button>Skipping a step on the ladder <span>+</span></button><div class="pn">Jumping straight to Final without prior documentation puts the company at risk. [Placeholder: confirm policy exceptions]</div>
@@ -938,8 +1002,8 @@ $('#pf').innerHTML=['All',...Object.keys(POL)].map(c=>`<button class="${c==='All
 document.querySelectorAll('#pf button').forEach(b=>b.onclick=()=>{pc=b.textContent;document.querySelectorAll('#pf button').forEach(x=>x.classList.toggle('on',x===b));fp()});fp();
 /* tiles: edit the u:'' web address for each tile */
 const TILES=[{n:'Paycom',u:'',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>`},
- {n:'SOPs',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgA8R3vzlV3YTIeNSzWeqhO2ASttwzEPWdx7oofsCT55PSQ?e=3QbZrU',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 12h6M9 16h6"/></svg>`},
- {n:'Manuals',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgD9O8PMLsxYQpkKoDkDZrJMAedE-ZpPfuKOutauGcuVGjc?e=dAf42u',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6"/></svg>`},
+ {n:'Company SOPs',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgA8R3vzlV3YTIeNSzWeqhO2ASttwzEPWdx7oofsCT55PSQ?e=3QbZrU',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l1 2h3v15H5V6h3z"/><path d="M9 12h6M9 16h6"/></svg>`},
+ {n:'Truck and Part Manuals',u:'https://ozinga.sharepoint.com/:f:/s/RevitalizeMixersTeam/IgD9O8PMLsxYQpkKoDkDZrJMAedE-ZpPfuKOutauGcuVGjc?e=dAf42u',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 21V5M9 7h6"/></svg>`},
  {n:'Safety',a:'safety',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>`},
  {n:'New Hire Safety Training',u:'https://ozinga.sharepoint.com/:f:/s/RMSafety-FormsandSOPs/IgALt0d_PTymQodiDp13EXcSASfBEO8m6ClAZchDq7vu2BA?e=bMcGci',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>`},
  {n:'IT Helpdesk',m:'Helpdesk@ozinga.com',subj:'IT Help Request',body:'Describe the problem:%0D%0A%0D%0AYour name and location:%0D%0A%0D%0AHow urgent is it:%0D%0A',i:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>`},
@@ -1011,10 +1075,10 @@ steps([["Walk your area before each shift","Look for blocked exits, damaged equi
 </div>`;
 $('#slinks').innerHTML=SAFE_LINKS.map((l,i)=>`<button class="card" style="text-align:left;cursor:pointer;border-left:6px solid var(--gold)" onclick="openLink(${i})"><b style="font:700 19px var(--fh);color:var(--navy);display:block">${l.n}</b><span style="font-size:14px;color:var(--muted)">${l.d}</span></button>`).join('');
 /* checklist + accordion */
-const cbs=[...document.querySelectorAll('.check input')];
-cbs.forEach(c=>c.onchange=()=>{const n=cbs.filter(x=>x.checked).length;$('#pb').style.width=n/cbs.length*100+'%';$('#pt').textContent=n+' of '+cbs.length+' complete';
- c.closest('label').classList.toggle('done',c.checked);$('.check').classList.toggle('complete',n===cbs.length)});
-$('#pt').setAttribute('aria-live','polite');
+document.querySelectorAll('.check').forEach(card=>{const cbs=[...card.querySelectorAll('input')],pb=card.querySelector('.prog i'),pt=card.querySelector('.ptxt');
+ pt.setAttribute('aria-live','polite');
+ cbs.forEach(c=>c.onchange=()=>{const n=cbs.filter(x=>x.checked).length;pb.style.width=n/cbs.length*100+'%';pt.textContent=n+' of '+cbs.length+' complete';
+ c.closest('label').classList.toggle('done',c.checked);card.classList.toggle('complete',n===cbs.length)})});
 document.querySelectorAll('#acc button').forEach(b=>{b.setAttribute('aria-expanded','false');b.onclick=()=>{const p=b.nextElementSibling;p.classList.toggle('open');const o=p.classList.contains('open');b.lastElementChild.textContent=o?'−':'+';b.setAttribute('aria-expanded',o)}});
 
 /* ===== live search: results as you type, arrow keys to move, Esc to clear ===== */
